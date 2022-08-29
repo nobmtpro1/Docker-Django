@@ -1,0 +1,18 @@
+@charset "utf-8";
+@import 'font';
+@import 'variable';
+@import 'animation';
+
+@import 'mixin';
+@import 'reset';
+@import 'general'; 
+
+@import './component/header'; 
+@import './component/footer';
+@import './component/popup';
+@import './component/loader';
+
+@import './page/home'; 
+@import './page/thanks'; 
+@import './page/overview'; 
+@import './page/live'; 

@@ -1,7 +1,6 @@
 from django.urls import include, path
 import sys
-sys.path.append("src/views")
-import home,post
+from ..views import home,post
 
 urlpatterns = [
     # path("admin/", admin.site.urls),

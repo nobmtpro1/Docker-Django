@@ -1,0 +1,20 @@
+@use "sass:math";
+@mixin PC {
+  @media (min-width: 1025px) {
+    @content;
+  }
+}
+
+@mixin MB {
+  @media (max-width: 1024px) {
+    @content;
+  }
+}
+
+@function p($size) {
+  @return ($size / 1920) * 100vw;
+}
+
+@function m($size) {
+  @return ($size / 414) * 100vw;
+}

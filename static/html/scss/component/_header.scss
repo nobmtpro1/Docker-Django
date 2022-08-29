@@ -1,0 +1,136 @@
+.header {
+    @include MB {
+        top: m(14);
+    }
+    position: fixed;
+    top: p(22);
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 99;
+
+    & > .box {
+        @include MB {
+            width: m(364);
+            height: m(53);
+            box-shadow: 0px m(4) m(15) rgba(52, 56, 70, 0.2);
+            border-radius: m(10);
+            padding: m(12) m(20);
+        }
+        width: p(1392);
+        height: p(100);
+        box-shadow: 0px p(4) p(15) rgba(52, 56, 70, 0.2);
+        border-radius: p(10);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: p(21) p(87);
+        background: white;
+
+        & > .logo-container {
+            @include MB {
+                width: m(200);
+            }
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: p(399);
+            & > .logo {
+                &:nth-child(1) {
+                    @include MB {
+                        width: m(98);
+                    }
+                    width: p(195);
+                }
+                &:nth-child(2) {
+                    @include MB {
+                        width: m(76);
+                    }
+                    width: p(155);
+                }
+
+                transition: all 200ms ease-in-out;
+                &:hover {
+                    transform: scale(1.05);
+                }
+            }
+        }
+
+        & > ul {
+            @include MB {
+                position: absolute;
+                flex-direction: column;
+                align-items: flex-start;
+                font-weight: 400;
+                font-size: m(16);
+                line-height: m(24);
+                background: white;
+                width: m(175);
+                gap: 0;
+                border-radius: m(10);
+                right: m(25);
+                bottom: m(-10);
+                transform: translateY(100%);
+                display: none;
+
+                &.active {
+                    display: block;
+                }
+            }
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: p(169);
+            font-family: Futura-regular;
+            font-weight: 400;
+            font-size: p(24);
+            line-height: 105%;
+
+            li {
+                @include MB {
+                    width: 100%;
+                    text-align: right;
+                    padding: m(16);
+                }
+                transition: all 200ms ease-in-out;
+                position: relative;
+                &::before {
+                    content: "";
+                    position: absolute;
+                    width: 0%;
+                    height: p(1);
+                    left: 0;
+                    bottom: p(-3);
+                    background: black;
+                    transition: all 200ms ease-in-out;
+                }
+            }
+
+            li:hover,
+            li.active {
+                &::before {
+                    @include MB {
+                        width: 0;
+                    }
+                    width: 100%;
+                }
+            }
+
+            li:not(:last-child) {
+                @include MB {
+                    border-bottom: m(1) dashed #343846;
+                }
+            }
+        }
+
+        & > .hamburger {
+            @include PC {
+                display: none;
+            }
+
+            width: m(24);
+        }
+    }
+}

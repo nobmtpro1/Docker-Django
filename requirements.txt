@@ -1,3 +1,4 @@
 Django==4.1
 mysqlclient
 cerberus
+bcrypt

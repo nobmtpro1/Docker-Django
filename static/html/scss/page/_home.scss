@@ -1,0 +1,1058 @@
+.page-home {
+    min-height: p(1000);
+    background: #153842;
+    padding-top: p(70);
+
+    & > .banner {
+        @include MB {
+            margin-top: m(35);
+        }
+
+        & > .pc {
+            @include MB {
+                display: none;
+            }
+        }
+
+        & > .mb {
+            @include PC {
+                display: none;
+            }
+        }
+    }
+
+    & > .trailer {
+        @include MB {
+            min-height: unset;
+            padding-left: m(16);
+            padding-right: m(16);
+            flex-direction: column;
+            padding-bottom: m(70);
+        }
+        background: url("../img/bg1.jpg");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        min-height: p(781);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-left: p(320);
+        padding-right: p(329);
+
+        & > .left {
+            @include MB {
+                width: 100%;
+                gap: m(11);
+                text-align: center;
+            }
+            width: p(456);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            gap: p(40);
+            position: relative;
+
+            & > .title {
+                @include MB {
+                    font-weight: 900;
+                    font-size: m(24);
+                    line-height: 105%;
+                }
+                font-weight: 900;
+                font-size: p(48);
+                line-height: 105%;
+                // font-family: Futura-bold;
+            }
+
+            & > .description {
+                @include MB {
+                    font-weight: 300;
+                    font-size: m(12);
+                    line-height: 130%;
+                    padding-left: m(30);
+                    padding-right: m(30);
+                    opacity: 0.7;
+                }
+                font-weight: 300;
+                font-size: p(16);
+                line-height: 130%;
+                font-family: Futura-light;
+                opacity: 0.9;
+            }
+
+            & > .more {
+                @include MB {
+                    position: absolute;
+                    bottom: m(-270);
+                    width: 100%;
+                    height: m(36);
+                    border-radius: m(10);
+                    font-weight: 900;
+                    font-size: m(14);
+                    line-height: m(20);
+                }
+                display: block;
+                width: p(302);
+                height: p(48);
+                color: black;
+                background: #eacc8a;
+                border-radius: p(10);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-weight: 900;
+                font-size: p(20);
+                line-height: p(28);
+                transition: all 200ms ease-in-out;
+
+                &:hover {
+                    background: white;
+                    color: #153842;
+                }
+            }
+        }
+
+        & > .right {
+            iframe {
+                @include MB {
+                    width: m(348);
+                    height: m(194);
+                    border-radius: m(15);
+                    display: block;
+                    margin-top: m(21);
+                }
+                width: p(660);
+                height: p(369);
+                border-radius: p(20);
+                display: block;
+            }
+        }
+    }
+
+    & > .booking {
+        @include MB {
+            transform: unset;
+            padding-left: m(16);
+            padding-right: m(16);
+        }
+
+        padding-left: p(318);
+        padding-right: p(318);
+        transform: translateY(p(-85));
+        color: white;
+        & > .title {
+            @include MB {
+                font-weight: 900;
+                font-size: m(24);
+                line-height: 105%;
+                margin-bottom: m(6);
+                text-align: center;
+            }
+            font-weight: 900;
+            font-size: p(48);
+            line-height: 105%;
+            margin-bottom: p(62);
+        }
+
+        & > .content {
+            @include MB {
+                gap: m(16);
+                flex-direction: column;
+                justify-content: flex-start;
+            }
+            display: flex;
+            justify-content: space-between;
+            gap: p(30);
+
+            & > .left {
+                @include MB {
+                    width: 100%;
+                    gap: m(16);
+                }
+
+                width: p(847);
+                display: flex;
+                flex-direction: column;
+                gap: p(43);
+                & > .box {
+                    & > .head {
+                        @include MB {
+                            font-weight: 400;
+                            font-size: m(18);
+                            line-height: 105%;
+                            padding-bottom: m(6);
+                            margin-bottom: m(16);
+                            border-bottom: m(1.5) solid #eacc8a;
+                        }
+
+                        font-weight: 400;
+                        font-size: p(36);
+                        line-height: 105%;
+                        border-bottom: p(1.5) solid #eacc8a;
+                        padding-bottom: p(8);
+                        margin-bottom: p(30);
+                        cursor: pointer;
+                        position: relative;
+
+                        &::before {
+                            @include MB {
+                                width: m(16);
+                                height: m(17);
+                                top: 10%;
+                            }
+                            position: absolute;
+                            content: "";
+                            width: p(19);
+                            height: p(28);
+                            top: 20%;
+                            right: 0;
+                            background: url("../img/arrow.svg");
+                            background-position: center;
+                            background-size: contain;
+                            background-repeat: no-repeat;
+                            transform: rotate(180deg);
+                        }
+                    }
+
+                    &.active {
+                        & > .items {
+                            height: auto;
+                            overflow: unset;
+                        }
+
+                        & > .head {
+                            &::before {
+                                transform: rotate(0deg);
+                            }
+                        }
+                    }
+
+                    & > .items {
+                        @include MB {
+                            gap: m(16);
+                        }
+
+                        display: flex;
+                        flex-direction: column;
+                        gap: p(16);
+                        height: 0;
+                        overflow: hidden;
+
+                        & > .item {
+                            @include MB {
+                                box-shadow: 0px m(4) m(4) rgba(0, 0, 0, 0.25);
+                                border-radius: m(15);
+                            }
+                            display: flex;
+                            background: #eacc8a;
+                            box-shadow: 0px p(4) p(4) rgba(0, 0, 0, 0.25);
+                            border-radius: p(15);
+                            & > .image {
+                                @include MB {
+                                    width: m(140);
+                                    padding: m(10);
+                                    border-right: m(0.75) dashed #153842;
+                                }
+
+                                width: p(233);
+                                padding: p(16);
+                                border-right: p(0.75) dashed #153842;
+                                position: relative;
+
+                                img {
+                                    @include MB {
+                                        box-shadow: 0px m(4) m(4) rgba(0, 0, 0, 0.25);
+                                        border-radius: m(10);
+                                    }
+
+                                    box-shadow: 0px p(4) p(4) rgba(0, 0, 0, 0.25);
+                                    border-radius: p(10);
+                                }
+
+                                & > .label {
+                                    @include MB {
+                                        top: m(17);
+                                        left: m(15);
+                                        height: m(23);
+                                        width: m(58);
+                                        border-radius: m(5);
+                                        font-weight: 900;
+                                        font-size: m(14);
+                                        line-height: m(20);
+                                    }
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center;
+                                    position: absolute;
+                                    top: p(22);
+                                    left: p(19);
+                                    height: p(23);
+                                    width: p(58);
+                                    background: #eacc8a;
+                                    border-radius: p(5);
+                                    font-weight: 900;
+                                    font-size: p(14);
+                                    line-height: p(20);
+                                    color: #153842;
+
+                                    &.online {
+                                        &::before {
+                                            @include MB {
+                                                width: m(5);
+                                                height: m(5);
+                                                margin-right: m(7);
+                                                transform: translate(m(4), m(0));
+                                            }
+
+                                            position: relative;
+                                            display: inline-block;
+                                            content: "";
+                                            width: p(5);
+                                            height: p(5);
+                                            border-radius: 100%;
+                                            background: #f9003b;
+                                            margin-right: p(7);
+                                            transform: translate(p(4), p(0));
+                                        }
+                                    }
+                                }
+                            }
+
+                            & > .text {
+                                @include MB {
+                                    flex-direction: column;
+                                    gap: m(0);
+                                    justify-content: flex-start;
+                                    padding: m(10);
+                                }
+
+                                flex: 1;
+                                display: flex;
+                                justify-content: space-between;
+                                gap: p(58);
+                                color: #153842;
+                                padding: p(13);
+
+                                & > .left {
+                                    @include PC{
+                                        width: p(380);
+                                    }
+                                 
+                                    & > .name {
+                                        @include MB {
+                                            font-weight: 900;
+                                            font-size: m(16);
+                                            line-height: 105%;
+                                            margin-top: p(0);
+                                        }
+
+                                        font-weight: 900;
+                                        font-size: p(24);
+                                        line-height: 105%;
+                                        font-family: Futura-heavy;
+                                        margin-top: p(5);
+                                    }
+
+                                    & > .info {
+                                        @include MB {
+                                            gap: m(4);
+                                            margin-top: m(15);
+                                            flex-direction: column;
+                                            align-items: flex-start;
+                                        }
+
+                                        display: flex;
+                                        align-items: center;
+                                        gap: p(50);
+                                        margin-top: p(17);
+
+                                        & > .info-item {
+                                            @include MB {
+                                                gap: m(8);
+                                                font-weight: 400;
+                                                font-size: m(12);
+                                                line-height: m(17);
+                                            }
+
+                                            display: flex;
+                                            align-items: center;
+                                            gap: p(10);
+                                            font-weight: 400;
+                                            font-size: p(14);
+                                            line-height: p(20);
+                                            & > .image {
+                                                @include MB {
+                                                    width: m(14);
+                                                }
+                                                width: p(18);
+                                            }
+
+                                            & > .text {
+                                                white-space: nowrap;
+                                            }
+                                        }
+
+                                        & > .info-item:nth-child(2) {
+                                            & > .image {
+                                                @include MB {
+                                                    transform: scale(1.05);
+                                                }
+                                                transform: scale(1.1);
+                                            }
+                                        }
+
+                                        & > .info-item:nth-child(3) {
+                                            & > .image {
+                                                transform: scale(0.9);
+                                            }
+                                        }
+                                    }
+
+                                    & > .web {
+                                        @include MB {
+                                            gap: m(9);
+                                            font-weight: 400;
+                                            font-size: m(12);
+                                            line-height: m(17);
+                                            margin-top: m(0);
+                                        }
+                                        display: flex;
+                                        align-items: center;
+                                        gap: p(9);
+                                        font-weight: 400;
+                                        font-size: p(14);
+                                        line-height: p(20);
+                                        margin-top: p(4);
+
+                                        & > .image {
+                                            @include MB {
+                                                width: m(18);
+                                                transform: translate(m(-2), m(2));
+                                            }
+                                            width: p(22);
+                                            transform: translate(p(-3), 0);
+                                        }
+                                    }
+
+                                    & > .status {
+                                        @include MB {
+                                            display: none;
+                                        }
+                                        width: p(139);
+                                        height: p(29);
+                                        border: p(1) solid #153842;
+                                        box-sizing: border-box;
+                                        border-radius: p(8);
+                                        font-weight: 400;
+                                        font-size: p(14);
+                                        line-height: p(20);
+                                        display: flex;
+                                        justify-content: center;
+                                        align-items: center;
+                                        margin-top: p(5);
+                                        span {
+                                            font-weight: 900;
+                                        }
+                                    }
+                                }
+
+                                & > .right {
+                                    @include MB {
+                                        padding-top: m(5);
+                                    }
+                                    display: flex;
+                                    flex-direction: column;
+                                    justify-content: space-between;
+                                    padding-top: p(12);
+
+                                    & > .price {
+                                        @include MB {
+                                            font-weight: 900;
+                                            font-size: m(16);
+                                            line-height: 105%;
+                                            margin-top: m(13);
+                                        }
+                                        font-weight: 900;
+                                        font-size: p(24);
+                                        line-height: 105%;
+                                        font-family: Futura-heavy;
+                                    }
+
+                                    & > .status-mb {
+                                        @include PC {
+                                            display: none;
+                                        }
+                                        width: m(139);
+                                        height: m(29);
+                                        border: m(2) solid #153842;
+                                        box-sizing: border-box;
+                                        border-radius: m(8);
+                                        font-weight: 400;
+                                        font-size: m(14);
+                                        line-height: m(20);
+                                        display: flex;
+                                        justify-content: center;
+                                        align-items: center;
+                                        margin-top: m(9);
+                                        span {
+                                            font-weight: 900;
+                                        }
+                                    }
+
+                                    & > .quantity {
+                                        @include MB {
+                                            border: m(2) #343846 solid;
+                                            border-radius: m(5);
+                                            width: m(92);
+                                        }
+                                        display: flex;
+                                        gap: 0;
+                                        border: p(2) #343846 solid;
+                                        border-radius: p(5);
+                                        button {
+                                            @include MB {
+                                                width: m(21);
+                                                height: m(23);
+                                            }
+                                            width: p(32);
+                                            height: p(36);
+                                            background: transparent;
+                                            border: none;
+                                            cursor: pointer;
+                                        }
+                                        input {
+                                            @include MB {
+                                                width: m(49);
+                                                height: m(23);
+                                                border-left: m(2) #343846 solid;
+                                                border-right: m(2) #343846 solid;
+                                            }
+                                            width: p(74);
+                                            height: p(36);
+                                            background: transparent;
+                                            border: none;
+                                            border-left: p(2) #343846 solid;
+                                            border-right: p(2) #343846 solid;
+                                            text-align: center;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            & > .right {
+                @include MB {
+                    padding-top: 0;
+                }
+                flex: 1;
+                padding-top: p(79);
+
+                & > .info {
+                    @include MB {
+                        box-shadow: 0px m(4) m(4) rgba(0, 0, 0, 0.25);
+                        border-radius: m(15);
+                        padding: m(19) m(14);
+                        padding-bottom: m(15);
+                    }
+                    background: #eacc8a;
+                    box-shadow: 0px p(4) p(4) rgba(0, 0, 0, 0.25);
+                    border-radius: p(15);
+                    color: #153842;
+                    padding: p(17) p(15);
+
+                    & > .head {
+                        @include MB {
+                            margin-bottom: m(14);
+                        }
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        margin-bottom: p(13);
+
+                        & > .title {
+                            @include MB {
+                                font-weight: 900;
+                                font-size: m(18);
+                                line-height: m(25);
+                            }
+                            font-weight: 900;
+                            font-size: p(20);
+                            line-height: p(28);
+                            font-family: Futura-heavy;
+                        }
+
+                        & > .edit {
+                            @include MB {
+                                width: m(19);
+                            }
+                            width: p(20);
+                            cursor: pointer;
+                        }
+                    }
+
+                    & > .content {
+                        @include MB {
+                            gap: m(8);
+                        }
+                        display: flex;
+                        flex-direction: column;
+                        gap: p(8);
+
+                        & > .input {
+                            input {
+                                @include MB {
+                                    height: m(36);
+                                    border-radius: m(10);
+                                    font-weight: 400;
+                                    font-size: m(12);
+                                    line-height: m(17);
+                                    padding: m(10) m(18);
+                                    font-family: Futura;
+                                }
+                                width: 100%;
+                                height: p(48);
+                                background: rgba(236, 221, 188, 1);
+                                border-radius: p(10);
+                                border: unset;
+                                font-weight: bold;
+                                font-size: p(16);
+                                line-height: p(22);
+                                padding: p(13) p(20);
+                                color: #153842;
+                                font-family: Futura-light;
+
+                                &:focus {
+                                    outline: none;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                & > .total {
+                    @include MB {
+                        box-shadow: 0px m(4) m(4) rgba(0, 0, 0, 0.25);
+                        border-radius: m(15);
+                        padding: m(15) m(18);
+                        margin-top: m(17);
+                        font-weight: 400;
+                        font-size: m(12);
+                        line-height: m(17);
+                        margin-bottom: m(70);
+                    }
+                    background: #eacc8a;
+                    box-shadow: 0px p(4) p(4) rgba(0, 0, 0, 0.25);
+                    border-radius: p(15);
+                    color: #153842;
+                    padding: p(17) p(15);
+                    margin-top: p(16);
+                    font-weight: 400;
+                    font-size: p(16);
+                    line-height: p(22);
+                    font-family: Futura-regular;
+
+                    & > .title {
+                        @include MB {
+                            font-weight: 900;
+                            font-size: m(18);
+                            line-height: m(25);
+                            margin-bottom: m(19);
+                        }
+
+                        font-weight: 900;
+                        font-size: p(20);
+                        line-height: p(28);
+                        font-family: Futura-heavy;
+                        margin-bottom: p(17);
+                    }
+
+                    
+                    & > .content {
+                        @include MB {
+                            gap: m(8);
+                        }
+                        display: flex;
+                        flex-direction: column;
+                        gap: p(8);
+                        margin-bottom: p(13);
+
+                        & > .input {
+                            input {
+                                @include MB {
+                                    height: m(36);
+                                    border-radius: m(10);
+                                    font-weight: 400;
+                                    font-size: m(12);
+                                    line-height: m(17);
+                                    padding: m(10) m(18);
+                                    font-family: Futura;
+                                }
+                                width: 100%;
+                                height: p(48);
+                                background: rgba(236, 221, 188, 1);
+                                border-radius: p(10);
+                                border: unset;
+                                font-weight: bold;
+                                font-size: p(16);
+                                line-height: p(22);
+                                padding: p(13) p(20);
+                                color: #153842;
+                                font-family: Futura-light;
+
+                                &:focus {
+                                    outline: none;
+                                }
+                            }
+                        }
+                    }
+
+                    & > .row {
+                        @include MB {
+                            margin-bottom: m(19);
+                        }
+                        display: flex;
+                        justify-content: space-between;
+                        margin-bottom: p(13);
+
+                        & > .col {
+                            & > .switch {
+                                @include MB {
+                                    width: m(38);
+                                    height: m(20);
+                                    border-radius: m(35);
+                                    padding: m(1);
+                                }
+                                cursor: pointer;
+                                width: p(38);
+                                height: p(20);
+                              
+                                background: white;
+                                border-radius: p(10); 
+                                display: flex;
+                                justify-content: flex-start;
+                                padding: p(1);
+
+                                &.active {
+                                    justify-content: flex-end;
+                                    background: #153842;
+                                    & > .switch-circle {
+                                        background: white;
+                                    }
+                                }
+
+                                & > .switch-circle {
+                                    @include MB {
+                                        width: m(18);
+                                        height: m(18);
+                                        padding: m(1);
+                                    }
+                                    width: p(18);
+                                    height: p(18);
+                                    
+                                    background: #153842;
+                                    border-radius: 100%;
+                                }
+                            }
+                        }
+                    }
+
+                    & > .payment {
+                        & > .radio {
+                            @include MB {
+                                margin-top: m(21);
+                                line-height: m(17);
+                                gap: m(24);
+                            }
+                            margin-top: p(18);
+                            line-height: p(10);
+                            display: flex;
+                            flex-direction: column;
+                            gap: p(34);
+
+                            & > .input {
+                                @include MB {
+                                    padding-left: m(20);
+                                    font-weight: 900;
+                                    font-family: Futura-regular;
+                                }
+
+                                input {
+                                    opacity: 0;
+                                }
+                                position: relative;
+                                padding-left: p(19);
+
+                                &.checked {
+                                    &::before {
+                                        @include MB {
+                                            width: m(20);
+                                            height: m(20);
+                                            top: 0;
+                                            left: m(0);
+                                        }
+                                        content: "";
+                                        position: absolute;
+                                        width: p(20);
+                                        height: p(20);
+                                        top: 0;
+                                        left: p(10);
+                                        background: url("../img/checked.svg");
+                                        background-position: center;
+                                        background-size: contain;
+                                        background-repeat: no-repeat;
+                                    }
+                                }
+
+                                &::before {
+                                    @include MB {
+                                        width: m(20);
+                                        height: m(20);
+                                        top: 0;
+                                        left: m(0);
+                                    }
+                                    content: "";
+                                    position: absolute;
+                                    width: p(20);
+                                    height: p(20);
+                                    top: 0;
+                                    left: p(10);
+                                    background: url("../img/uncheck.svg");
+                                    background-position: center;
+                                    background-size: contain;
+                                    background-repeat: no-repeat;
+                                }
+                            }
+                        }
+                    }
+
+                    position: relative;
+                    & > .button {
+                        @include MB {
+                            position: absolute;
+                            bottom: m(-13);
+                            width: 100%;
+                            left: 0;
+                        }
+                        button {
+                            @include MB {
+                                background: #eacc8a;
+                                border-radius: m(10);
+                                height: m(36);
+                                transform: translateY(100%);
+                                font-weight: 900;
+                                font-size: m(14);
+                                line-height: m(20);
+                                margin-top: p(0);
+                                color: #153842;
+                                font-family: Futura-heavy;
+                                position: relative;
+
+                                &::before {
+                                    position: absolute;
+                                    content: "";
+                                    width: 100%;
+                                    height: m(2);
+                                    background: #eacc8a;
+                                    bottom: m(-15);
+                                    left: 0;
+                                }
+                            }
+                            width: 100%;
+                            height: p(48);
+                            background: #153842;
+                            border-radius: p(10);
+                            color: white;
+                            font-weight: 900;
+                            font-size: p(18);
+                            line-height: p(25);
+                            font-family: Futura;
+                            border: none;
+                            margin-top: p(29);
+                            cursor: pointer;
+                            transition: all 200ms ease-in-out;
+
+                            &:hover {
+                                background: white;
+                                color: #153842;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    & > .check-booking {
+        @include MB {
+            padding-top: m(0);
+            padding-left: m(16);
+            padding-right: m(16);
+            padding-bottom: m(32);
+        }
+        padding-top: p(0);
+        padding-left: p(318);
+        padding-right: p(318);
+        padding-bottom: p(74);
+
+        & > .box {
+            @include MB {
+                background: transparent;
+                box-shadow: unset;
+                padding-top: m(0);
+                padding-left: m(0);
+                padding-right: m(0);
+                padding-bottom: m(0);
+                color: white;
+                flex-direction: column;
+                justify-content: flex-start;
+                text-align: center;
+            }
+            background: #eacc8a;
+            box-shadow: 0px p(4) p(4) rgba(0, 0, 0, 0.25);
+            border-radius: p(20);
+            padding-top: p(40);
+            padding-left: p(95);
+            padding-right: p(77);
+            padding-bottom: p(34);
+            color: #153842;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            & > .left {
+                & > .title {
+                    @include MB {
+                        font-weight: 900;
+                        font-size: m(24);
+                        line-height: 105%;
+                        margin-bottom: m(19);
+                        margin-top: m(20);
+                    }
+
+                    font-weight: 900;
+                    font-size: p(48);
+                    line-height: 105%;
+                    font-family: Futura-heavy;
+                    margin-bottom: p(17);
+                    position: relative;
+
+                    &::before {
+                        @include MB {
+                            display: none;
+                        }
+                        content: "";
+                        position: absolute;
+                        width: p(30);
+                        height: p(30);
+                        left: p(-40);
+                        top: p(13);
+                        background: url("../img/check-booking.svg");
+                        background-position: center;
+                        background-size: contain;
+                        background-repeat: no-repeat;
+                    }
+                }
+                & > .description {
+                    @include MB {
+                        font-weight: 300;
+                        font-size: m(12);
+                        line-height: 130%;
+                        width: m(330);
+                        opacity: 0.6;
+                        font-family: Futura-light;
+                    }
+                    font-weight: 300;
+                    font-size: p(16);
+                    line-height: 130%;
+                    width: p(321);
+                }
+            }
+
+            & > .right {
+                @include MB {
+                    width: 100%;
+                }
+
+                width: p(580);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                input {
+                    @include MB {
+                        width: 100%;
+                        height: m(36);
+                        background: #efefef;
+                        border-radius: m(10);
+                        padding: m(10) m(20);
+                        margin-top: m(18);
+                    }
+
+                    width: 100%;
+                    height: p(56);
+                    background: rgba(235, 212, 163, 1);
+                    border-radius: p(10);
+                    padding: p(10) p(20);
+                    border: none;
+                    &:focus {
+                        outline: none;
+                    }
+                }
+
+                & > .description {
+                    @include MB {
+                        font-weight: 300;
+                        font-size: m(10);
+                        line-height: 130%;
+                        margin-top: m(6);
+                        opacity: 0.5;
+                        font-family: Futura-light;
+                    }
+                    font-weight: 300;
+                    font-size: p(12);
+                    line-height: 130%;
+                    margin-top: p(13);
+                }
+
+                & > .button {
+                    @include MB {
+                        width: 100%;
+                        height: m(36);
+                        font-weight: 900;
+                        font-size: m(14);
+                        line-height: m(20);
+                        border-radius: m(10);
+                        margin-top: m(11);
+                        background: #eacc8a;
+                        color: #153842;
+                        font-family: Futura-heavy;
+                    }
+                    width: p(302);
+                    height: p(48);
+                    background: #153842;
+                    border-radius: p(10);
+                    color: white;
+                    font-weight: 900;
+                    font-size: p(18);
+                    line-height: p(25);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    font-family: Futura;
+                    border: none;
+                    cursor: pointer;
+                    margin-top: p(21);
+                    transition: all 200ms ease-in-out;
+
+                    &:hover {
+                        background: white;
+                        color: #153842;
+                    }
+                }
+            }
+        }
+    }
+}

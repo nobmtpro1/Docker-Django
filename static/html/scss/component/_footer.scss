@@ -1,0 +1,172 @@
+.footer {
+    @include MB {
+        padding-left: m(16);
+        padding-right: m(16);
+        padding-bottom: m(20);
+        background: url("../img/bg-footer-mb.jpg");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    color: #eacc8a;
+    padding-left: p(301);
+    padding-right: p(301);
+    padding-bottom: p(71);
+    background: url("../img/bg-footer.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    & > .links {
+        @include MB {
+            gap: m(13);
+            padding-top: m(31);
+            border-top: m(2) #eacc8a solid;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+        display: flex;
+        justify-content: space-between;
+        gap: p(48);
+        padding-top: p(59);
+        border-top: p(2) #eacc8a solid;
+    
+        & > .col {
+            @include MB {
+                flex: unset;
+                position: relative;
+            }
+            flex: 1;
+            overflow: visible;
+            & > .title {
+                @include MB {
+                    font-weight: 900;
+                    font-size: m(16);
+                    line-height: 105%;
+                    margin-bottom: m(20);
+                }
+                font-weight: 900;
+                font-size: p(24);
+                line-height: 105%;
+                font-family: Futura-heavy;
+                margin-bottom: p(19);
+            }
+
+            ul {
+                @include MB {
+                    font-weight: 400;
+                    font-size: m(14);
+                    line-height: 176.5%;
+                }
+                display: flex;
+                flex-direction: column;
+                gap: p(0);
+                font-weight: 400;
+                font-size: p(24);
+                line-height: 176.5%;
+            }
+
+            & > .phone {
+                @include MB {
+                    border: m(1) solid #eacc8a;
+                    border-radius: m(13);
+                    padding: m(15) m(15);
+                    font-weight: 400;
+                    font-size: m(24);
+                    line-height: 105%;
+                    margin-top: m(5);
+                    margin-bottom: m(30);
+                    width: auto;
+                }
+                border: p(1) solid #eacc8a;
+                box-sizing: border-box;
+                border-radius: p(13);
+                padding: p(15) p(20);
+                font-weight: 400;
+                font-size: p(24);
+                line-height: 105%;
+                margin-bottom: p(28);
+                margin-top: p(10);
+                display: block;
+                width: auto;
+                position: absolute;
+                white-space: nowrap;
+                img {
+                    @include MB {
+                        width: m(18);
+                        margin-right: m(17);
+                    }
+                    width: p(18);
+                    margin-right: p(17);
+                }
+            }
+
+            & > .social {
+                @include MB {
+                    grid-template-columns: auto auto auto auto auto auto;
+                    width: 100%;
+                    row-gap: p(0);
+                    gap: m(20);
+                    margin-top: m(110);
+                }
+                display: grid;
+                grid-template-columns: auto auto auto;
+                width: p(180);
+                row-gap: p(17);
+                margin-top: p(110);
+                a {
+                    @include MB {
+                        width: m(46);
+                        height: m(46);
+                    }
+                    width: p(46);
+                    height: p(46);
+                }
+            }
+
+            & > .image-confirm{
+                @include MB {
+                    width: m(198);
+                    height: m(60);
+                    margin-top: m(28);
+                    height: m(60);
+                }
+                display: block;
+                margin-top: p(28);
+                width: p(198);
+                height: p(60);
+            }
+        }
+
+        & > .col:nth-child(4) {
+            @include MB {
+                width: 100%;
+                margin-left: p(0);
+            }
+            flex: unset;
+            width: p(220);
+            margin-left: p(30);
+        }
+    }
+
+    & > .term {
+        @include MB {
+            flex-direction: column-reverse;
+            justify-content: flex-start;
+            gap: p(0);
+            font-weight: 400;
+            font-size: m(10);
+            line-height: 176.5%;
+            margin-top: m(29);
+            font-family: Futura-regular;
+        }
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: p(137);
+        font-weight: 400;
+        font-size: p(18);
+        line-height: 176.5%;
+        margin-top: p(0);
+    }
+}
