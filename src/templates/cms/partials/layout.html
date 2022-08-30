@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Dashboard - Mazer Admin Dashboard</title>
+        <title>CMS</title>
 
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link
@@ -38,9 +38,10 @@
             href="{% static 'cms-html/assets/images/favicon.svg' %}"
             type="image/x-icon"
         />
+        {% block css %}{% endblock %}
     </head>
 
-    <body>
+    <body>{% csrf_token %}
         <div id="app">
             {% sidebar request %}
             <div id="main">
@@ -57,7 +58,7 @@
                             <div class="col-12 col-md-6 order-md-2 order-first">
                                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                     <ol class="breadcrumb">
-                                        <li class="breadcrumb-item " aria-current="page">Badge</li>
+                                        <li class="breadcrumb-item " aria-current="page">{{request.user.first_name}}</li>
                                         <li class="breadcrumb-item"><a href="{% url "cms:logout" %}">Logout</a></li>
                                     </ol>
                                 </nav>
@@ -70,12 +71,24 @@
                 </div>
             </div>
         </div>
+
+        <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+        
         <script src="{% static 'cms-html/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js' %}"></script>
         <script src="{% static 'cms-html/assets/js/bootstrap.bundle.min.js' %}"></script>
 
         <script src="{% static 'cms-html/assets/vendors/apexcharts/apexcharts.js' %}"></script>
         <script src="{% static 'cms-html/assets/js/pages/dashboard.js' %}"></script>
 
+        <script src="{% static 'cms-html/assets/vendors/simple-datatables/simple-datatables.js' %}"></script>
+        <script>
+            // Simple Datatable
+            let table1 = document.querySelector('#table1');
+            let dataTable = new simpleDatatables.DataTable(table1);
+        </script>
+
         <script src="{% static 'cms-html/assets/js/main.js' %}"></script>
+
+        {% block js %}{% endblock %}
     </body>
 </html>

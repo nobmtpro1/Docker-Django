@@ -18,7 +18,7 @@ def login(request):
         return redirect("cms:dashboard")
     return render(request, "cms/pages/account/login.html", {})
 
-@login_required
+
 def logout(request):
     auth_logout(request)
     return redirect("cms:login")

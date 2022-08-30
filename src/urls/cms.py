@@ -6,5 +6,10 @@ urlpatterns = [
     path("auth/login", account.login, name="login"),
     path("logout", account.logout, name="logout"),
     path("", dashboard.index, name="dashboard"),
-    path("ticket", ticket.index, name="ticket"),
+
+    # ticket
+    path("ticket", ticket.index, name="ticket.index"),
+    path("ticket/create", ticket.create, name="ticket.create"),
+    path("ticket/update/<id>", ticket.update, name="ticket.update"),
+    path("ticket/delete/<id>", ticket.delete, name="ticket.delete"),
 ]

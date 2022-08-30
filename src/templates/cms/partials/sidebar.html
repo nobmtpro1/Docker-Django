@@ -31,8 +31,8 @@
                     </a>
                 </li>
 
-                <li class="sidebar-item {% if request.resolver_match.url_name == "ticket" %}active{% endif %}">
-                    <a href="{% url 'cms:ticket' %}" class="sidebar-link">
+                <li class="sidebar-item {% if "ticket." in request.resolver_match.url_name  %}active{% endif %}">
+                    <a href="{% url 'cms:ticket.index' %}" class="sidebar-link">
                         <i class="bi bi-grid-fill"></i>
                         <span>Ticket</span>
                     </a>
