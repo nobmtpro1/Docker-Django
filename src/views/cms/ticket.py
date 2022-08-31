@@ -7,6 +7,7 @@ from ...models import Ticket
 from marshmallow import Schema, fields, ValidationError, INCLUDE, validate
 
 
+# validation
 class TicketSchema(Schema):
     type = fields.String(required=True, validate=validate.Length(min=1, max=255))
     name = fields.String(required=True, validate=validate.Length(min=1, max=255))
@@ -24,7 +25,8 @@ class TicketSchema(Schema):
 
 
 def index(request):
-    return render(request, "cms/pages/ticket/index.html", {})
+    tickets = Ticket.objects.order_by("-id")
+    return render(request, "cms/pages/ticket/index.html", {"tickets": tickets})
 
 
 def create(request):
@@ -35,32 +37,70 @@ def create(request):
             print(err.messages)
             return JsonResponse({"errors": err.messages}, status=400)
 
+        if "image" in request.FILES:
+            return JsonResponse({"errors": {"image": ["File is required"]}}, status=400)
         error = validateFile(request.FILES["image"], "image", 10000000)
         if error:
             return JsonResponse({"errors": {"image": [error]}}, status=400)
 
-        record = Ticket(
-            type="online" if request.POST["type"] == "online" else "offline",
-            name=request.POST["name"],
-            price=request.POST["price"],
-            date=request.POST["date"],
-            _from=request.POST["_from"],
-            to=request.POST["to"],
-            quantity=request.POST["quantity"],
-            address=request.POST["address"],
-            link_video=request.POST["link_video"],
-            image=uploadFile(request.FILES["image"], "/static/uploads/images/"),
-        )
-        record.save()
+        ticket = Ticket()
+        ticket.type = "online" if request.POST["type"] == "online" else "offline"
+        ticket.name = request.POST["name"]
+        ticket.price = request.POST["price"]
+        ticket.date = request.POST["date"]
+        ticket._from = request.POST["_from"]
+        ticket.to = request.POST["to"]
+        ticket.quantity = request.POST["quantity"]
+        ticket.address = request.POST["address"]
+        ticket.link_video = request.POST["link_video"]
+        ticket.image = uploadFile(request.FILES["image"], "/static/uploads/images/")
+        ticket.save()
 
         return JsonResponse(request.POST, status=200)
 
     return render(request, "cms/pages/ticket/create.html", {})
 
 
-def update(request):
-    return render(request, "cms/pages/ticket/index.html", {})
+def update(request, id):
+    if request.method == "POST":
+        try:
+            result = TicketSchema().load(request.POST, unknown=INCLUDE)
+        except ValidationError as err:
+            print(err.messages)
+            return JsonResponse({"errors": err.messages}, status=400)
+
+        if "image" in request.FILES:
+            error = validateFile(request.FILES["image"], "image", 10000000)
+            if error:
+                return JsonResponse({"errors": {"image": [error]}}, status=400)
+
+        ticket = Ticket.objects.get(pk=id)
+        ticket.type = "online" if request.POST["type"] == "online" else "offline"
+        ticket.name = request.POST["name"]
+        ticket.price = request.POST["price"]
+        ticket.date = request.POST["date"]
+        ticket._from = request.POST["_from"]
+        ticket.to = request.POST["to"]
+        ticket.quantity = request.POST["quantity"]
+        ticket.address = request.POST["address"]
+        ticket.link_video = request.POST["link_video"]
+        if "image" in request.FILES:
+            ticket.image = uploadFile(request.FILES["image"], "/static/uploads/images/")
+        ticket.save()
+        pprint(request.POST["date"])
+        return JsonResponse(request.POST, status=200)
+
+    ticket = Ticket.objects.get(pk=id)
+    ticket.from_ = ticket._from
+    return render(request, "cms/pages/ticket/update.html", {"ticket": ticket})
 
 
 def delete(request):
-    return render(request, "cms/pages/ticket/index.html", {})
+    if request.method == "POST":
+        try:
+            ticket = Ticket.objects.get(pk=request.POST["id"])
+            ticket.delete()
+            return JsonResponse(request.POST, status=200) 
+        except ValidationError as err:
+            print(err.messages)
+            return JsonResponse({"errors": err.messages}, status=400)

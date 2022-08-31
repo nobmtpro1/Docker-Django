@@ -11,5 +11,5 @@ urlpatterns = [
     path("ticket", ticket.index, name="ticket.index"),
     path("ticket/create", ticket.create, name="ticket.create"),
     path("ticket/update/<id>", ticket.update, name="ticket.update"),
-    path("ticket/delete/<id>", ticket.delete, name="ticket.delete"),
+    path("ticket/delete", ticket.delete, name="ticket.delete"),
 ]
