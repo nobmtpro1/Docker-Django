@@ -1,0 +1,25 @@
+{% load static %} {% load web %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'html/css/main.css' %}" />
+    <title>Booking ticket</title>
+    {% block head %}{% endblock %}
+</head>
+
+<body class="body">{% csrf_token %}
+    {% popup request %}
+    {% header request %}
+    {% block content %}{% endblock %}
+    {% footer request %}
+
+    <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+    <script src="{% static 'html/js/main.js' %}"></script>
+    {% block foot %}{% endblock %}
+</body>
+
+</html>

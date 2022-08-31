@@ -9,7 +9,7 @@ class Ticket(models.Model):
     image = models.TextField(null=True)
     name = models.CharField(max_length=255,null=True)
     date = models.DateField(null=True)
-    _from = models.TimeField(null=True)
+    time_from = models.TimeField(null=True)
     to = models.TimeField(null=True)
     quantity = models.IntegerField(default=0)
     address = models.CharField(max_length=255,null=True)

@@ -1,0 +1,182 @@
+{% extends "web/partials/layout.html" %}
+{% load static %}
+{% load helpers %}
+{%block content %}
+<main class="page-home">
+    <section class="banner">
+        <img src="{% static 'html/img/banner.jpg' %}" alt="" class="pc" />
+        <img src="{% static 'html/img/banner.jpg' %}" alt="" class="mb" />
+    </section>
+    <section class="trailer">
+        <div class="left">
+            <h1 class="title">Vietnam Young Lions</h1>
+            <p class="description">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Ultricies enim et, lorem eget elementum ultrices. Ornare neque
+                massa, id elit, venenatis nec interdum. Neque ipsum amet leo mi
+                nullam vulputate. Pretium arcu feugiat magna Lorem ipsum dolor
+                sit amet, consectetur adipiscing elit. Ultricies enim et, lorem
+                eget elementum ultrices. Ornare neque massa, id elit, venenatis
+                nec interdum. Neque ipsum amet leo mi nullam vulputate. Pretium
+                arcu feugiat magna eget elementum ultrices. Ornare neque massa,
+                id elit, venenatis nec interdum. Neque ipsum amet leo
+            </p>
+            <a class="more" href="">Xem thêm</a>
+        </div>
+        <div class="right">
+            <iframe width="200" height="200" src="https://www.youtube.com/embed/IsNYctPeZNg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+    </section>
+    <section class="booking">
+        <h1 class="title">Đặt vé</h1>
+        <div class="content">
+            <div class="left">
+                {% for type in types %}
+                <div class="box active">
+                    <div class="head">{{type|title}}</div>
+                    <div class="items">
+                        {% for ticket in tickets %} {% if ticket.type == type %}
+                        <div class="item">
+                            <div class="image">
+                                <img src="{% static 'html/img/item.jpg' %}" alt="" />
+                                <div class="label online">{{type|title}}</div>
+                            </div>
+                            <div class="text">
+                                <div class="left">
+                                    <h2 class="name">{{ticket.name}}</h2>
+                                    <div class="info">
+                                        <div class="info-item">
+                                            <div class="image">
+                                                <img src="{% static 'html/' %}img/lich.svg" alt="" />
+                                            </div>
+                                            <div class="text">
+                                                {% formatDatetime ticket.date "%Y-%m-%d" "%d.%m.%Y" %}
+                                            </div>
+                                        </div>
+                                        <div class="info-item">
+                                            <div class="image">
+                                                <img src="{% static 'html/' %}img/clock.svg" alt="" />
+                                            </div>
+                                            <div class="text">
+                                                {% formatDatetime ticket.time_from "%H:%M:%S" "%H:%M" %}
+                                                -
+                                                {% formatDatetime ticket.to "%H:%M:%S" "%H:%M" %}
+                                            </div>
+                                        </div>
+                                        <div class="info-item">
+                                            <div class="image">
+                                                <img src="{% static 'html/' %}img/user.svg" alt="" />
+                                            </div>
+                                            <div class="text">
+                                                {{ ticket.soldticket_set.count}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="web">
+                                        <div class="image">
+                                            <img src="{% static 'html/' %}img/map.svg" alt="" />
+                                        </div>
+                                        <div class="text">
+                                            {{ticket.address}}
+                                        </div>
+                                    </div>
+                                    <div class="status">
+                                        Còn&nbsp;<span>{{ ticket.quantity|subtract:ticket.soldticket_set.count }}/{{ticket.quantity}} vé</span>
+                                    </div>
+                                </div>
+                                <div class="right">
+                                    <div class="quantity">
+                                        <button class="js-minusQuantity" data-id="{{ticket.id}}">-</button>
+                                        <input type="text" value="0" class="js-quantity" data-id="{{ticket.id}}" />
+                                        <button class="js-plusQuantity" data-id="{{ticket.id}}">+</button>
+                                    </div>
+                                    <div class="status-mb">
+                                        Còn&nbsp;<span>{{ ticket.quantity|subtract:ticket.soldticket_set.count }}/{{ticket.quantity}} vé</span>
+                                    </div>
+                                    <div class="price">{{ticket.price|formatThousandsNumber:"."}} VNĐ</div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %} {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="right">
+                <div class="info">
+                    <div class="head">
+                        <h2 class="title">Thông tin mua hàng</h2>
+                        <div class="edit">
+                            <img src="{% static 'html/' %}img/sua.svg" alt="" />
+                        </div>
+                    </div>
+                    <form class="content">
+                        <div class="input">
+                            <input type="text" placeholder="Tên" />
+                        </div>
+                        <div class="input">
+                            <input type="text" placeholder="Số điện thoại" />
+                        </div>
+                        <div class="input">
+                            <input type="text" placeholder="Email" />
+                        </div>
+                    </form>
+                </div>
+                <div class="total">
+                    <h2 class="title">Tổng cộng</h2>
+                    <div class="row">
+                        <div class="col">Tổng đơn hàng (4 sản phẩm)</div>
+                        <div class="col">499.000 đ</div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">Tổng cộng</div>
+                        <div class="col">499.000 đ</div>
+                    </div>
+                    <div class="payment">
+                        Phương thức thanh toán
+                        <div class="radio">
+                            <div class="input">
+                                <input type="radio" name="fav_language" value="0" />
+                                <label for="html">Thanh toán bằng ví điện tử MOMO</label>
+                            </div>
+                            <div class="input">
+                                <input type="radio" name="fav_language" value="1" />
+                                <label for="html">Chuyển khoản ngân hàng ACB</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button">
+                        <button>Thanh toán</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="check-booking">
+        <div class="box">
+            <div class="left">
+                <h1 class="title">Kiểm tra đặt vé</h1>
+                <p class="description">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Ultricies enim et, lorem eget elementum ultrices. Ornare
+                    neque massa, id elit, venenatis nec interdum. Neque ipsum
+                    amet leo mi nullam vulputate. Pretium arcu feugiat magna
+                </p>
+            </div>
+            <form class="right">
+                <input type="text" />
+                <p class="description">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Ultricies enim et, lorem eget elementum ultrices.
+                </p>
+                <button class="button">Gửi lại mail</button>
+            </form>
+        </div>
+    </section>
+</main>
+{% endblock %}
+{%block foot %}
+<input type="hidden" id="js-data" data-urlrequestcart="{% url "web:getCart" %}">
+<script src="{% static 'html/js/home.js' %}"></script>
+{% endblock %}

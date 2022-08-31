@@ -12,7 +12,7 @@ class TicketSchema(Schema):
     type = fields.String(required=True, validate=validate.Length(min=1, max=255))
     name = fields.String(required=True, validate=validate.Length(min=1, max=255))
     date = fields.String(required=True, validate=validate.Length(min=1, max=255))
-    _from = fields.String(required=True, validate=validate.Length(min=1, max=255))
+    time_from = fields.String(required=True, validate=validate.Length(min=1, max=255))
     to = fields.String(required=True, validate=validate.Length(min=1, max=255))
     quantity = fields.Integer(
         required=True, validate=validate.Range(min=1, max=10**11 - 1)
@@ -48,7 +48,7 @@ def create(request):
         ticket.name = request.POST["name"]
         ticket.price = request.POST["price"]
         ticket.date = request.POST["date"]
-        ticket._from = request.POST["_from"]
+        ticket.time_from = request.POST["time_from"]
         ticket.to = request.POST["to"]
         ticket.quantity = request.POST["quantity"]
         ticket.address = request.POST["address"]
@@ -79,7 +79,7 @@ def update(request, id):
         ticket.name = request.POST["name"]
         ticket.price = request.POST["price"]
         ticket.date = request.POST["date"]
-        ticket._from = request.POST["_from"]
+        ticket.time_from = request.POST["time_from"]
         ticket.to = request.POST["to"]
         ticket.quantity = request.POST["quantity"]
         ticket.address = request.POST["address"]
@@ -91,7 +91,7 @@ def update(request, id):
         return JsonResponse(request.POST, status=200)
 
     ticket = Ticket.objects.get(pk=id)
-    ticket.from_ = ticket._from
+    ticket.from_ = ticket.time_from
     return render(request, "cms/pages/ticket/update.html", {"ticket": ticket})
 
 
@@ -100,7 +100,7 @@ def delete(request):
         try:
             ticket = Ticket.objects.get(pk=request.POST["id"])
             ticket.delete()
-            return JsonResponse(request.POST, status=200) 
+            return JsonResponse(request.POST, status=200)
         except ValidationError as err:
             print(err.messages)
             return JsonResponse({"errors": err.messages}, status=400)
