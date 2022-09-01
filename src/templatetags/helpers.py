@@ -33,5 +33,10 @@ def subtract(value, arg):
 
 
 @register.filter
-def formatThousandsNumber(value,type):
+def formatThousandsNumber(value, type):
     return "{0:,}".format(value).replace(",", type)
+
+
+@register.filter
+def getByKey(data, key):
+    return data.get(key, "")

@@ -1,6 +1,4 @@
-{% extends "web/partials/layout.html" %}
-{% load static %}
-{% load helpers %}
+{% extends "web/partials/layout.html" %} {% load static %} {% load helpers %}
 {%block content %}
 <main class="page-home">
     <section class="banner">
@@ -38,7 +36,12 @@
                         {% for ticket in tickets %} {% if ticket.type == type %}
                         <div class="item">
                             <div class="image">
-                                <img src="{% static 'html/img/item.jpg' %}" alt="" />
+                                <img src="
+                                {% if ticket.image %}
+                                {% static 'uploads/images/' %}{{ticket.image}}
+                                {% else %}
+                                {% static 'html/' %}img/item.jpg
+                                {% endif %}" alt="" />
                                 <div class="label online">{{type|title}}</div>
                             </div>
                             <div class="text">
@@ -81,7 +84,7 @@
                                         </div>
                                     </div>
                                     <div class="status">
-                                        Còn&nbsp;<span>{{ ticket.quantity|subtract:ticket.soldticket_set.count }}/{{ticket.quantity}} vé</span>
+                                        Còn&nbsp;<span>{{ticket.quantity|subtract:ticket.soldticket_set.count}}/{{ticket.quantity}} vé</span>
                                     </div>
                                 </div>
                                 <div class="right">
@@ -91,9 +94,12 @@
                                         <button class="js-plusQuantity" data-id="{{ticket.id}}">+</button>
                                     </div>
                                     <div class="status-mb">
-                                        Còn&nbsp;<span>{{ ticket.quantity|subtract:ticket.soldticket_set.count }}/{{ticket.quantity}} vé</span>
+                                        Còn&nbsp;<span>{{
+                                            ticket.quantity|subtract:ticket.soldticket_set.count
+                                            }}/{{ticket.quantity}} vé</span>
                                     </div>
-                                    <div class="price">{{ticket.price|formatThousandsNumber:"."}} VNĐ</div>
+                                    <div class="price">{{ticket.price|formatThousandsNumber:"."}}
+                                        VNĐ</div>
                                 </div>
                             </div>
                         </div>
@@ -112,42 +118,29 @@
                     </div>
                     <form class="content">
                         <div class="input">
-                            <input type="text" placeholder="Tên" />
+                            <input type="text" placeholder="Tên" name="name" />
                         </div>
                         <div class="input">
-                            <input type="text" placeholder="Số điện thoại" />
+                            <input type="text" placeholder="Số điện thoại" name="phone" />
                         </div>
                         <div class="input">
-                            <input type="text" placeholder="Email" />
+                            <input type="text" placeholder="Email" name="email" />
                         </div>
                     </form>
                 </div>
                 <div class="total">
                     <h2 class="title">Tổng cộng</h2>
                     <div class="row">
-                        <div class="col">Tổng đơn hàng (4 sản phẩm)</div>
-                        <div class="col">499.000 đ</div>
+                        <div class="col">Tổng đơn hàng</div>
+                        <div class="col"><span class="js-totalQuantity">0</span> sản
+                            phẩm</div>
                     </div>
-
                     <div class="row">
                         <div class="col">Tổng cộng</div>
-                        <div class="col">499.000 đ</div>
-                    </div>
-                    <div class="payment">
-                        Phương thức thanh toán
-                        <div class="radio">
-                            <div class="input">
-                                <input type="radio" name="fav_language" value="0" />
-                                <label for="html">Thanh toán bằng ví điện tử MOMO</label>
-                            </div>
-                            <div class="input">
-                                <input type="radio" name="fav_language" value="1" />
-                                <label for="html">Chuyển khoản ngân hàng ACB</label>
-                            </div>
-                        </div>
+                        <div class="col"><span class="js-total">0</span> đ</div>
                     </div>
                     <div class="button">
-                        <button>Thanh toán</button>
+                        <button class="js-checkout">Thanh toán</button>
                     </div>
                 </div>
             </div>
@@ -175,8 +168,62 @@
         </div>
     </section>
 </main>
+<div class="component-popup-payment js-popupPayment">
+    <div class="box">
+        <h1 class="title">Xác thực thanh toán bằng ngân hàng</h1>
+        <h2 class="head">Đơn hàng</h2>
+        <div class="order">
+            <div class="left">
+                <div class="row js-popupName"></div>
+                <div class="row js-popupPhone"></div>
+                <div class="row js-popupEmail"></div>
+            </div>
+            <div class="right">
+                <table class="js-popupTable">
+                 
+                </table>
+            </div>
+        </div>
+        <div class="bank">
+            <div class="rows">
+                <div class="row">
+                    <div class="col">Tên tài khoản</div>
+                    <div class="col"> Công ty Cổ phần Đào tạo AIM Academy </div>
+                </div>
+                <div class="row">
+                    <div class="col">Số tài khoản</div>
+                    <div class="col">123456789</div>
+                </div>
+                <div class="row">
+                    <div class="col">Ngân hàng</div>
+                    <div class="col">Ngân hàng ACB</div>
+                </div>
+                <div class="row">
+                    <div class="col">Chi nhánh</div>
+                    <div class="col">PGD - Chi nhánh Tân Định</div>
+                </div>
+                <div class="row">
+                    <div class="col">Số tiền</div>
+                    <div class="col"><span class="js-popupTotal"></span> VNĐ</div>
+                </div>
+                <div class="row">
+                    <div class="col">Nội dung chuyển khoản</div>
+                    <div class="col js-popupOrderCode"></div>
+                </div>
+            </div>
+            <div class="description">
+                Lưu ý khi chuyển khoản, consectetur adipiscing elit. Ultricies
+                enim et, lorem eget elementum ultrices. Ornare neque massa, id
+                elit, venenatis nec interdum. Neque ipsum amet leo mi nullam
+            </div>
+            <div class="button">
+                <a class="js-popupCancel">Huỷ</a>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
 {%block foot %}
-<input type="hidden" id="js-data" data-urlrequestcart="{% url "web:getCart" %}">
+<input type="hidden" id="js-data" data-urlrequestcart="{% url "web:getCart" %}" data-urlcheckout="{% url "web:checkout" %}" data-urlcheckorderstatus="{% url "web:checkOrderStatus" %}" data-urlcheckorderstatussuccess="{% url "web:thankYou" %}">
 <script src="{% static 'html/js/home.js' %}"></script>
 {% endblock %}

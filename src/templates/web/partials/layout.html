@@ -12,7 +12,6 @@
 </head>
 
 <body class="body">{% csrf_token %}
-    {% popup request %}
     {% header request %}
     {% block content %}{% endblock %}
     {% footer request %}
