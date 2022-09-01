@@ -1,0 +1,69 @@
+{% extends "web/partials/layoutBootstrap.html" %}
+{% block content %}
+<div class="containe d-flex justify-content-center align-items-center" style="min-height:100vh">
+    <div class="row">
+        <p class="fs-3">Đăng ký <a href="{% url "web:login" %}" class="fs-6">Đăng nhập</a></p>
+        <form id="form">
+            <div class="mb-3">
+                <label class="form-label">Name</label>
+                <input type="text" class="form-control" name="name">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="text" class="form-control" name="email">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Password</label>
+                <input type="password" class="form-control" name="password">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block foot %}
+
+
+<script>
+    $(document).on('submit', '#form', function() {
+        var formData = new FormData()
+
+        formData.append('csrfmiddlewaretoken', $('[name="csrfmiddlewaretoken"]').val() || "")
+
+        $('#form').find('input,textarea,select').each(function(i) {
+            if ($(this).attr('type') == 'file') {
+                formData.append($(this).attr('name'), $(this)[0]?.files[0] || "")
+            }else{
+                formData.append($(this).attr('name'), $(this)?.val() || "")
+            }
+        })
+
+        $.ajax({
+            url: '',
+            data: formData,
+            processData: false,
+            contentType: false,
+            type: 'POST',
+            success: function(data) {
+                console.log(data)
+                alert('Successfully')
+                window.location.href = "{% url 'web:login' %}"
+            },
+            error: function(data, textStatus, jqXHR) {
+                var errors = data.responseJSON.errors
+                console.log(errors)
+                var message = ""
+
+                for (const property in errors) {
+                    message += ( errors[property][0] + "\r\n")
+                }
+
+                alert(message);
+            },
+        });
+        return false
+    })
+</script>
+
+{% endblock %}

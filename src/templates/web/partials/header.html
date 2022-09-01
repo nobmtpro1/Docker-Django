@@ -1,18 +1,17 @@
 {% load static %}
+{% load helpers %}
 <header class="header">
     <div class="box">
         <div class="logo-container">
-            <a class="logo" href="#"
-                ><img src="{% static 'html/img/logo1.svg' %}" alt=""
-            /></a>
-            <a class="logo" href="#"
-                ><img src="{% static 'html/img/logo2.svg' %}" alt=""
-            /></a>
+            <a class="logo" href="#"><img src="{% static 'html/img/logo1.svg' %}" alt="" /></a>
+            <a class="logo" href="#"><img src="{% static 'html/img/logo2.svg' %}" alt="" /></a>
         </div>
         <ul>
-            <li class="{% if request.resolver_match.url_name == "home" %}active{% endif %}"><a href="{% url 'web:home' %}">Đặt vé</a></li>
-            <li class="{% if request.resolver_match.url_name == "livestream" %}active{% endif %}"><a href="{% url 'web:livestream' %}">Xem livestream</a></li>
-            <li><a href="#">Cuộc thi</a></li>
+            <li class="{% if request.resolver_match.url_name == "home" %}active{% endif %}"><a
+                    href="{% url 'web:home' %}">Đặt vé</a></li>
+            <li class="{% if request.resolver_match.url_name == "livestream" %}active{% endif %}"><a
+                    href="{% url 'web:livestream' %}">Xem livestream</a></li>
+            <li><a href="{% url 'web:login' %}">Đăng nhập {{request.session|getByKey:"logged"}}</a></li>
         </ul>
         <div class="hamburger">
             <img src="{% static 'html/img/hamburger.svg' %}" alt="" />

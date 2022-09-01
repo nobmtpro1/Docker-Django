@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login as auth_login, logout as aut
 from django.contrib.auth.decorators import login_required
 
 
+
 def login(request):
     if request.method == "POST":
         username = request.POST["username"]

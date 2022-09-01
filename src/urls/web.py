@@ -1,5 +1,5 @@
 from django.urls import path
-from ..views.web import home, livestream
+from ..views.web import home, livestream, auth
 
 app_name = "web"
 urlpatterns = [
@@ -9,4 +9,6 @@ urlpatterns = [
     path("check-order-status", home.checkOrderStatus, name="checkOrderStatus"),
     path("thank-you", home.thankYou, name="thankYou"),
     path("livestream", livestream.index, name="livestream"),
+    path("login", auth.login, name="login"),
+    path("register", auth.register, name="register"),
 ]

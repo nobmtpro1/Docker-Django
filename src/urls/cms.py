@@ -1,5 +1,5 @@
 from django.urls import path
-from ..views.cms import dashboard,ticket,account
+from ..views.cms import dashboard,ticket,account,order
 
 app_name="cms"
 urlpatterns = [
@@ -12,4 +12,8 @@ urlpatterns = [
     path("ticket/create", ticket.create, name="ticket.create"),
     path("ticket/update/<id>", ticket.update, name="ticket.update"),
     path("ticket/delete", ticket.delete, name="ticket.delete"),
+
+    # ticket
+    path("order", order.index, name="order.index"),
+    path("order/apply", order.apply, name="ticket.apply"),
 ]
