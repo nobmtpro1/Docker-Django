@@ -16,11 +16,6 @@ class AuthCms:
         if appName == "cms" and resolve(request.path_info).url_name not in ["login"]:
             if not request.user.is_authenticated:
                 return redirect("cms:login")
-                
-            if request.user.type != "admin":
-                auth_logout(request)
-                
-                return redirect("cms:login")
 
         response = self.get_response(request)
 

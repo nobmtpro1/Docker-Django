@@ -8,7 +8,7 @@ def seed():
             Ticket(
                 type="online",
                 name="Marketing management",
-                date="2022-08-31 12:17:55.000000",
+                date="2022-08-31",
                 time_from="09:17:55.000000",
                 to="12:17:55.000000",
                 quantity=200,
@@ -19,7 +19,7 @@ def seed():
             Ticket(
                 type="offline",
                 name="Content creative",
-                date="2022-09-12 12:17:55.000000",
+                date="2022-09-12",
                 time_from="13:17:55.000000",
                 to="17:17:55.000000",
                 quantity=250,

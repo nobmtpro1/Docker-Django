@@ -1,10 +1,15 @@
 from pprint import pprint
 from django.http import JsonResponse, HttpResponseRedirect
 from django.shortcuts import render
+
+from ...utilities.helpers import getFlashSession, setFlashSession
 from ...models import UserClient
 from marshmallow import Schema, fields, ValidationError, INCLUDE, validate
 import bcrypt
 from django.shortcuts import redirect
+import jwt
+import json
+from django.core import serializers
 
 
 # validation
@@ -22,26 +27,36 @@ def login(request):
             )
         except ValidationError as err:
             print(err.messages)
-            request.session["loginError"] = list(err.messages.values())[0][0]
-            request.session["loginDisplayed"] = False
+            setFlashSession(request, "loginError", list(err.messages.values())[0][0])
             return HttpResponseRedirect(request.META.get("HTTP_REFERER", "/"))
 
-        user = UserClient.objects.get(email=request.POST["email"])
+        user = UserClient.objects.filter(email=request.POST["email"]).first()
 
         if user and bcrypt.checkpw(
             request.POST["password"].encode("utf-8"), user.password.encode("utf-8")
         ):
-            request.session["logged"] = True
+            request.session["userClientToken"] = jwt.encode(
+                {
+                    "user": json.loads(
+                        serializers.serialize(
+                            "json",
+                            [
+                                user,
+                            ],
+                        )
+                    )[0]
+                },
+                "secret",
+                algorithm="HS256",
+            )
             return redirect("web:home")
         else:
-            request.session["loginError"] = "Fail"
-            request.session["loginDisplayed"] = False
+            setFlashSession(
+                request, "loginError", "Tài khoản hoặc mật khẩu không chính xác"
+            )
             return HttpResponseRedirect(request.META.get("HTTP_REFERER", "/"))
 
-    errorMessage = ""
-    if request.session.get("loginDisplayed", True) == False:
-        errorMessage = request.session["loginError"]
-    request.session["loginDisplayed"] = True
+    errorMessage = getFlashSession(request, "loginError")
     return render(request, "web/pages/login.html", {"errorMessage": errorMessage})
 
 
@@ -71,3 +86,8 @@ def register(request):
         return JsonResponse({}, status=200)
 
     return render(request, "web/pages/register.html", {})
+
+
+def logout(request):
+    request.session["userClientToken"] = None
+    return redirect(request.GET.get("next", ""))

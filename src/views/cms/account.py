@@ -10,7 +10,7 @@ def login(request):
         username = request.POST["username"]
         password = request.POST["password"]
         user = authenticate(request, username=username, password=password)
-        if (user is not None and user.type == "admin"):
+        if (user is not None):
             auth_login(request, user)
             return redirect("cms:dashboard")
         else:

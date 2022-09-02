@@ -50,6 +50,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "src.middlewares.authCms.AuthCms",
+    "src.middlewares.authClient.AuthClient",
 ]
 
 ROOT_URLCONF = "core.urls"
@@ -138,7 +139,6 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-AUTH_USER_MODEL = 'src.User'
 LOGIN_URL = "auth/login"
 
 FILE_UPLOAD_HANDLERS = [
