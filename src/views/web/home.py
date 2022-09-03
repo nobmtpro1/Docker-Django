@@ -47,7 +47,8 @@ class CartSchema(Schema):
 
 
 def index(request):
-    tickets = Ticket.objects.order_by("-id")
+    tickets = Ticket.objects.order_by("-id").filter()
+
     return render(
         request,
         "web/pages/home.html",

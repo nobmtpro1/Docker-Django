@@ -21,7 +21,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECRET_KEY", "django-insecure-qdw2lpoczxap6a4my7j3k-$10@4^8b--$pz07^+c1m(g!c=mbl")
+SECRET_KEY = os.environ.get(
+    "SECRET_KEY", "django-insecure-qdw2lpoczxap6a4my7j3k-$10@4^8b--$pz07^+c1m(g!c=mbl"
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = int(os.environ.get("DEBUG", default=0))
@@ -132,7 +134,7 @@ STATIC_URL = "static/"
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [
     BASE_DIR / "static",
-    '/usr/src/app/static/',
+    "/usr/src/app/static/",
 ]
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -142,8 +144,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 LOGIN_URL = "/cms/auth/login"
 
 FILE_UPLOAD_HANDLERS = [
-    'django.core.files.uploadhandler.MemoryFileUploadHandler',
-    'django.core.files.uploadhandler.TemporaryFileUploadHandler',
+    "django.core.files.uploadhandler.MemoryFileUploadHandler",
+    "django.core.files.uploadhandler.TemporaryFileUploadHandler",
 ]
 
 LOGIN_GOOGLE_CLIENT_ID = os.environ.get("LOGIN_GOOGLE_CLIENT_ID")
@@ -153,3 +155,10 @@ LOGIN_GOOGLE_REDIRECT = os.environ.get("LOGIN_GOOGLE_REDIRECT")
 LOGIN_FACEBOOK_CLIENT_ID = os.environ.get("LOGIN_FACEBOOK_CLIENT_ID")
 LOGIN_FACEBOOK_CLIENT_SECRET = os.environ.get("LOGIN_FACEBOOK_CLIENT_SECRET")
 LOGIN_FACEBOOK_REDIRECT = os.environ.get("LOGIN_FACEBOOK_REDIRECT")
+
+EMAIL_MAILER = os.environ.get("EMAIL_MAILER", "smtp")
+EMAIL_HOST = os.environ.get("EMAIL_HOST", "smtp.gmail.com")
+EMAIL_PORT = os.environ.get("EMAIL_PORT", 587)
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
+EMAIL_USE_TLS = int(os.environ.get("EMAIL_USE_TLS", True))

@@ -30,16 +30,12 @@ def toJson(instance, type="list"):
             indent=4,
         )
 
-    return json.dumps(
-        json.loads(
-            serializers.serialize(
-                "json",
-                instance,
-            )
-        ),
-        indent=4,
+    return serializers.serialize(
+        "json",
+        instance,
     )
+
 
 def randomString(length):
     characters = string.ascii_lowercase + string.digits
-    return ''.join(random.choice(characters) for i in range(length))
+    return "".join(random.choice(characters) for i in range(length))

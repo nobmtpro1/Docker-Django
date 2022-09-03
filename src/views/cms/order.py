@@ -4,6 +4,8 @@ from django.shortcuts import render
 from ...utilities.helpers import randomString, toJson
 from ...models import Order, SoldTicket
 from django.contrib.auth.decorators import permission_required
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
 
 
 @permission_required("src.view_order")
@@ -30,6 +32,17 @@ def apply(request):
 
             order.is_paid = 1
             order.save()
+
+        html = render_to_string("email/orderSuccess.html", {"order": order})
+
+        send_mail(
+            "Mua vé thành công",
+            "",
+            "nobmtpro2021@gmail.com",
+            [order.email],
+            fail_silently=False,
+            html_message=html,
+        )
 
         return JsonResponse({"string": randomString(6)}, status=200)
 
