@@ -13,7 +13,7 @@
                     href="{% url 'web:livestream' %}">Xem livestream</a></li>
             <li>
                 {% if request.userClient %}
-                <a href="{% url 'web:logout' %}?next={{ request.get_full_path | urlencode }}">{{request.userClient.fields.name}}
+                <a href="{% url 'web:logout' %}?next={{ request.get_full_path | urlencode }}">{{request.userClient.name}}
                     / Đăng xuất</a>
                 {% else %}
                 <a href="{% url 'web:login' %}">Đăng nhập</a> </li>

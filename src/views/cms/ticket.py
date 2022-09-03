@@ -5,7 +5,7 @@ from django.shortcuts import render
 from ...utilities.uploadFile import uploadFile, validateFile
 from ...models import Ticket
 from marshmallow import Schema, fields, ValidationError, INCLUDE, validate
-
+from django.contrib.auth.decorators import permission_required
 
 # validation
 class TicketSchema(Schema):
@@ -24,11 +24,12 @@ class TicketSchema(Schema):
     link_video = fields.String(required=True, validate=validate.Length(min=1, max=255))
 
 
+@permission_required("src.view_ticket")
 def index(request):
     tickets = Ticket.objects.order_by("-id")
     return render(request, "cms/pages/ticket/index.html", {"tickets": tickets})
 
-
+@permission_required("src.add_ticket")
 def create(request):
     if request.method == "POST":
         try:
@@ -60,7 +61,7 @@ def create(request):
 
     return render(request, "cms/pages/ticket/create.html", {})
 
-
+@permission_required("src.change_ticket")
 def update(request, id):
     if request.method == "POST":
         try:
@@ -94,7 +95,7 @@ def update(request, id):
     ticket.from_ = ticket.time_from
     return render(request, "cms/pages/ticket/update.html", {"ticket": ticket})
 
-
+@permission_required("src.delete_ticket")
 def delete(request):
     if request.method == "POST":
         try:

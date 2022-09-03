@@ -1,0 +1,120 @@
+{% extends "cms/partials/layout.html" %} {% block content %}
+<h1>Admin manager</h1>
+<section id="multiple-column-form">
+    <div class="row match-height">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Create</h4>
+                </div>
+                <div class="card-content">
+                    <div class="card-body">
+                        <form class="form" id="form">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="first-name-column">Group
+                                        </label>
+                                        <select class="js-example-basic-multiple form-control" name="groups"
+                                            multiple="multiple">
+                                            {% for group in groups %}
+                                            <option value="{{group.id}}">
+                                                {{group.name}}
+                                            </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="first-name-column">Permissions</label>
+                                        <select class="js-example-basic-multiple form-control" name="permissions"
+                                            multiple="multiple">
+                                            {% for permission in permissions %}
+                                            <option value="{{permission.codename}}">
+                                                {{permission.name}}
+                                            </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="first-name-column">Username</label>
+                                        <input type="text" class="form-control" name="username" />
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="first-name-column">Password</label>
+                                        <input type="text" class="form-control" name="password" />
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="first-name-column">Name</label>
+                                        <input type="text" class="form-control" name="name" />
+                                    </div>
+                                </div>
+                                <div class="col-12 d-flex justify-content-start mt-3">
+                                    <button type="submit" class="btn btn-primary me-1 mb-1">
+                                        Submit
+                                    </button>
+                                    <button type="reset" class="btn btn-light-secondary me-1 mb-1">
+                                        Reset
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+{% block js %}
+<script>
+    $(document).ready(function () {
+        $('.js-example-basic-multiple').select2();
+    });
+    $(document).on('submit', '#form', function () {
+        var formData = new FormData()
+
+        formData.append('csrfmiddlewaretoken', $('[name="csrfmiddlewaretoken"]').val() || "")
+
+        $('#form').find('input,textarea,select').each(function (i) {
+            if ($(this).attr('type') == 'file') {
+                formData.append($(this).attr('name'), $(this)[0].files[0] || "")
+            } else {
+                formData.append($(this).attr('name'), $(this).val() || "")
+            }
+        })
+
+        $.ajax({
+            url: '',
+            data: formData,
+            processData: false,
+            contentType: false,
+            type: 'POST',
+            success: function (data) {
+                console.log(data)
+                alert('Successfully')
+                window.location.href = window.location.href 
+            },
+            error: function (data, textStatus, jqXHR) {
+                var errors = data.responseJSON.errors
+                console.log(errors)
+                var message = "Errors: \r\n"
+
+                for (const property in errors) {
+                    message += (property + ": " + errors[property][0] + "\r\n")
+                }
+
+                alert(message);
+            },
+        });
+        return false
+    })
+</script>
+{% endblock %}

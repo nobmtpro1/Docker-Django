@@ -12,4 +12,5 @@ urlpatterns = [
     path("login", auth.login, name="login"),
     path("logout", auth.logout, name="logout"),
     path("register", auth.register, name="register"),
+    path("oauth2/<provider>/callback", auth.loginSocialCallback, name="loginSocailCallback"),
 ]

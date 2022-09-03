@@ -41,6 +41,8 @@ def formatThousandsNumber(value, type):
 def getByKey(data, key):
     return data.get(key, "")
 
+
 @register.filter
 def getByIndex(data, index):
     return data[index]
+

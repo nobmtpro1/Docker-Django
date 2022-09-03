@@ -16,3 +16,7 @@ def footer(request):
 @register.inclusion_tag("web/partials/popup.html")
 def popup(request):
     return {"request": request}
+
+@register.inclusion_tag("web/partials/popup.html")
+def popup(request):
+    return {"request": request}

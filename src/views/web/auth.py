@@ -1,6 +1,10 @@
 from pprint import pprint
-from django.http import JsonResponse, HttpResponseRedirect
+from django.http import JsonResponse, HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
+
+from ...oauth2.facebook import facebookLoginUrl,facebookLoginCallback
+
+from ...oauth2.google import googleLoginCallback, googleLoginUrl
 
 from ...utilities.helpers import getFlashSession, setFlashSession
 from ...models import UserClient
@@ -36,16 +40,7 @@ def login(request):
             request.POST["password"].encode("utf-8"), user.password.encode("utf-8")
         ):
             request.session["userClientToken"] = jwt.encode(
-                {
-                    "user": json.loads(
-                        serializers.serialize(
-                            "json",
-                            [
-                                user,
-                            ],
-                        )
-                    )[0]
-                },
+                {"userId": user.id},
                 "secret",
                 algorithm="HS256",
             )
@@ -56,8 +51,18 @@ def login(request):
             )
             return HttpResponseRedirect(request.META.get("HTTP_REFERER", "/"))
 
+    googleLoginLink = googleLoginUrl(request)
+    facebookLoginLink = facebookLoginUrl(request)
     errorMessage = getFlashSession(request, "loginError")
-    return render(request, "web/pages/login.html", {"errorMessage": errorMessage})
+    return render(
+        request,
+        "web/pages/login.html",
+        {
+            "errorMessage": errorMessage,
+            "googleLoginLink": googleLoginLink,
+            "facebookLoginLink": facebookLoginLink,
+        },
+    )
 
 
 def register(request):
@@ -91,3 +96,35 @@ def register(request):
 def logout(request):
     request.session["userClientToken"] = None
     return redirect(request.GET.get("next", ""))
+
+
+def loginSocialCallback(request, provider):
+    # return JsonResponse(request.GET)
+    socialUser = None
+    name = None
+    email = None
+    if provider == "google":
+        socialUser = googleLoginCallback(request)
+        name = socialUser["name"]
+        email = socialUser["email"]
+
+    if provider == "facebook":
+        socialUser = facebookLoginCallback(request)
+        pprint(socialUser)
+        name = socialUser["name"]
+        email = socialUser["email"]
+
+    if socialUser:
+        user = UserClient.objects.filter(email=email).first()
+        if not user:
+            user = UserClient()
+            user.name = name
+            user.email = email
+            user.save()
+        request.session["userClientToken"] = jwt.encode(
+            {"userId": user.id},
+            "secret",
+            algorithm="HS256",
+        )
+
+    return redirect("web:home")

@@ -4,19 +4,11 @@
         <div class="sidebar-header">
             <div class="d-flex justify-content-between">
                 <div class="logo">
-                    <a href="index.html"
-                        ><img
-                            src="{% static 'cms-html/assets/images/logo/logo.png' %}"
-                            alt="Logo"
-                            srcset=""
-                    /></a>
+                    <a href="index.html"><img src="{% static 'cms-html/assets/images/logo/logo.png' %}" alt="Logo"
+                            srcset="" /></a>
                 </div>
                 <div class="toggler">
-                    <a
-                        href="#"
-                        class="sidebar-hide d-xl-none d-block"
-                        ><i class="bi bi-x bi-middle"></i
-                    ></a>
+                    <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
                 </div>
             </div>
         </div>
@@ -30,11 +22,36 @@
                         <span>Dashboard</span>
                     </a>
                 </li>
-
+                {% if perms.src.view_ticket %}
                 <li class="sidebar-item {% if "ticket." in request.resolver_match.url_name  %}active{% endif %}">
                     <a href="{% url 'cms:ticket.index' %}" class="sidebar-link">
                         <i class="bi bi-grid-fill"></i>
                         <span>Ticket</span>
+                    </a>
+                </li>
+                {% endif %}
+
+                {% if perms.src.view_order %}
+                <li class="sidebar-item {% if "order." in request.resolver_match.url_name  %}active{% endif %}">
+                    <a href="{% url 'cms:order.index' %}" class="sidebar-link">
+                        <i class="bi bi-grid-fill"></i>
+                        <span>Order</span>
+                    </a>
+                </li>
+                {% endif %}
+
+                <li class="sidebar-item {% if "admin." in request.resolver_match.url_name  %}active{% endif %}">
+                    <a href="{% url 'cms:admin.index' %}" class="sidebar-link">
+                        <i class="bi bi-grid-fill"></i>
+                        <span>Admin manager</span>
+                    </a>
+                </li>
+
+                <li
+                    class="sidebar-item {% if "groupPermission." in request.resolver_match.url_name  %}active{% endif %}">
+                    <a href="{% url 'cms:groupPermission.index' %}" class="sidebar-link">
+                        <i class="bi bi-grid-fill"></i>
+                        <span>Group permission</span>
                     </a>
                 </li>
 

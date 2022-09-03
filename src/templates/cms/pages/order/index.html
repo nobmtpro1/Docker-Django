@@ -1,0 +1,67 @@
+{% extends "cms/partials/layout.html" %} {% block content %}
+<h1>Order</h1>
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title">Index</h4>
+    </div>
+    <div class="card-body">
+        <table class="table table-striped" id="table1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Total</th>
+                    <th>Is paid</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                    <td>{{order.id}}</td>
+                    <td>{{order.name}}</td>
+                    <td>{{order.email}}</td>
+                    <td>{{order.phone}}</td>
+                    <td>{{order.total}}</td>
+                    <td>{% if order.is_paid == 1 %}Paid{% endif %}</td>
+                    <td> {% if order.is_paid != 1 %}<a href="#" class="js-apply" data-id="{{order.id}}">Apply</a>{% endif %} </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+    $(document).on('click', '.js-apply', function () {
+        if (confirm('Are you sure?')) {
+            var formData = new FormData()
+            formData.append(
+                "csrfmiddlewaretoken",
+                $('[name="csrfmiddlewaretoken"]').val() || ""
+            );
+            formData.append('id', $(this).data('id'))
+            var element = $(this).parents('tr')
+            var thisElement = $(this)
+            $.ajax({
+                url: "{% url 'cms:order.apply'  %}",
+                data: formData,
+                processData: false,
+                contentType: false,
+                type: 'POST',
+                success: function (data) {
+                    thisElement.parent().html("Applied")
+                    console.log(data)
+                },
+                error: function (data, textStatus, jqXHR) {
+                    alert('Không thể xoá nội dung này')
+                },
+            });
+            return false
+        }
+    })
+</script>
+{% endblock %}

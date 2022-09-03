@@ -139,9 +139,17 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-LOGIN_URL = "auth/login"
+LOGIN_URL = "/cms/auth/login"
 
 FILE_UPLOAD_HANDLERS = [
     'django.core.files.uploadhandler.MemoryFileUploadHandler',
     'django.core.files.uploadhandler.TemporaryFileUploadHandler',
 ]
+
+LOGIN_GOOGLE_CLIENT_ID = os.environ.get("LOGIN_GOOGLE_CLIENT_ID")
+LOGIN_GOOGLE_CLIENT_SECRET = os.environ.get("LOGIN_GOOGLE_CLIENT_SECRET")
+LOGIN_GOOGLE_REDIRECT = os.environ.get("LOGIN_GOOGLE_REDIRECT")
+
+LOGIN_FACEBOOK_CLIENT_ID = os.environ.get("LOGIN_FACEBOOK_CLIENT_ID")
+LOGIN_FACEBOOK_CLIENT_SECRET = os.environ.get("LOGIN_FACEBOOK_CLIENT_SECRET")
+LOGIN_FACEBOOK_REDIRECT = os.environ.get("LOGIN_FACEBOOK_REDIRECT")

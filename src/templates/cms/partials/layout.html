@@ -1,94 +1,77 @@
 {% load static %} {% load cms %}
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>CMS</title>
 
-        <link rel="preconnect" href="https://fonts.gstatic.com" />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap"
-            rel="stylesheet"
-        />
-        <link
-            rel="stylesheet"
-            href="{% static 'cms-html/assets/css/bootstrap.css' %}"
-        />
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CMS</title>
 
-        <link
-            rel="stylesheet"
-            href="{% static 'cms-html/assets/vendors/iconly/bold.css' %}"
-        />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'cms-html/assets/css/bootstrap.css' %}" />
 
-        <link
-            rel="stylesheet"
-            href="{% static 'cms-html/assets/vendors/perfect-scrollbar/perfect-scrollbar.css' %}"
-        />
-        <link
-            rel="stylesheet"
-            href="{% static 'cms-html/assets/vendors/bootstrap-icons/bootstrap-icons.css' %}"
-        />
-        <link
-            rel="stylesheet"
-            href="{% static 'cms-html/assets/css/app.css' %}"
-        />
-        <link
-            rel="shortcut icon"
-            href="{% static 'cms-html/assets/images/favicon.svg' %}"
-            type="image/x-icon"
-        />
-        {% block css %}{% endblock %}
-    </head>
+    <link rel="stylesheet" href="{% static 'cms-html/assets/vendors/iconly/bold.css' %}" />
 
-    <body>{% csrf_token %}
-        <div id="app">
-            {% sidebar request %}
-            <div id="main">
-                <header class="mb-3">
-                    <a href="#" class="burger-btn d-block d-xl-none">
-                        <i class="bi bi-justify fs-3"></i>
-                    </a>
-                </header>
-                <div class="page-content">
-                    <div class="page-title">
-                        <div class="row">
-                            <div class="col-12 col-md-6 order-md-1 order-last">
-                            </div>
-                            <div class="col-12 col-md-6 order-md-2 order-first">
-                                <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
-                                    <ol class="breadcrumb">
-                                        <li class="breadcrumb-item " aria-current="page">{{request.user.first_name}}</li>
-                                        <li class="breadcrumb-item"><a href="{% url "cms:logout" %}">Logout</a></li>
-                                    </ol>
-                                </nav>
-                            </div>
+    <link rel="stylesheet" href="{% static 'cms-html/assets/vendors/perfect-scrollbar/perfect-scrollbar.css' %}" />
+    <link rel="stylesheet" href="{% static 'cms-html/assets/vendors/bootstrap-icons/bootstrap-icons.css' %}" />
+    <link rel="stylesheet" href="{% static 'cms-html/assets/css/app.css' %}" />
+    <link rel="shortcut icon" href="{% static 'cms-html/assets/images/favicon.svg' %}" type="image/x-icon" />
+    {% block css %}{% endblock %}
+</head>
+
+<body>{% csrf_token %}
+    <div id="app">
+        {% sidebar request perms %}
+        <div id="main">
+            <header class="mb-3">
+                <a href="#" class="burger-btn d-block d-xl-none">
+                    <i class="bi bi-justify fs-3"></i>
+                </a>
+            </header>
+            <div class="page-content">
+                <div class="page-title">
+                    <div class="row">
+                        <div class="col-12 col-md-6 order-md-1 order-last">
+                        </div>
+                        <div class="col-12 col-md-6 order-md-2 order-first">
+                            <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item " aria-current="page">{{request.user.first_name}}</li>
+                                    <li class="breadcrumb-item"><a href="{% url "cms:logout" %}">Logout</a></li>
+                                </ol>
+                            </nav>
                         </div>
                     </div>
-                    <section class="row">
-                        {% block content %}{% endblock %}
-                    </section>
                 </div>
+                <section class="row">
+                    {% block content %}{% endblock %}
+                </section>
             </div>
         </div>
+    </div>
 
-        <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
-        
-        <script src="{% static 'cms-html/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js' %}"></script>
-        <script src="{% static 'cms-html/assets/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.js"
+        integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
 
-        <script src="{% static 'cms-html/assets/vendors/apexcharts/apexcharts.js' %}"></script>
-        <script src="{% static 'cms-html/assets/js/pages/dashboard.js' %}"></script>
 
-        <script src="{% static 'cms-html/assets/vendors/simple-datatables/simple-datatables.js' %}"></script>
-        <script>
-            // Simple Datatable
-            let table1 = document.querySelector('#table1');
-            let dataTable = new simpleDatatables.DataTable(table1);
-        </script>
+    <script src="{% static 'cms-html/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js' %}"></script>
+    <script src="{% static 'cms-html/assets/js/bootstrap.bundle.min.js' %}"></script>
 
-        <script src="{% static 'cms-html/assets/js/main.js' %}"></script>
+    <script src="{% static 'cms-html/assets/js/pages/dashboard.js' %}"></script>
 
-        {% block js %}{% endblock %}
-    </body>
+    <script src="{% static 'cms-html/assets/vendors/simple-datatables/simple-datatables.js' %}"></script>
+    <script>
+        // Simple Datatable
+        let table1 = document.querySelector('#table1');
+        let dataTable = new simpleDatatables.DataTable(table1);
+    </script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="{% static 'cms-html/assets/js/main.js' %}"></script>
+
+    {% block js %}{% endblock %}
+</body>
+
 </html>

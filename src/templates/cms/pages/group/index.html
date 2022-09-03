@@ -1,0 +1,58 @@
+{% extends "cms/partials/layout.html" %} {% block content %}
+<h1>Group permission</h1>
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title">Index</h4>
+    </div>
+    <div class="card-header"><a href="{% url "cms:groupPermission.create" %}">Create</a></div>
+    <div class="card-body">
+        <table class="table table-striped" id="table1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for x in groups %}
+                <tr>
+                    <td>{{x.id}}</td>
+                    <td>{{x.name}}</td>
+                    <td><a href="{% url "cms:groupPermission.update" id=x.id %}" >Update</a> / <a href="#" class="delete" data-id="{{x.id}}">Delete</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+    $(document).on('click', '.delete', function() {
+        if (confirm('Are you sure?')) {
+            var formData = new FormData()
+            formData.append(
+                "csrfmiddlewaretoken",
+                $('[name="csrfmiddlewaretoken"]').val() || ""
+            );
+            formData.append('id', $(this).data('id'))
+            var element = $(this).parents('tr')
+            $.ajax({
+                url: "{% url 'cms:groupPermission.delete'  %}",
+                data: formData,
+                processData: false,
+                contentType: false,
+                type: 'POST',
+                success: function(data) {
+                    element.hide()
+                },
+                error: function(data, textStatus, jqXHR) {
+                    alert('Không thể xoá nội dung này')
+                },
+            });
+            return false
+        }
+    })
+</script>
+{% endblock %}
