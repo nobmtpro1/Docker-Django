@@ -13,4 +13,6 @@ urlpatterns = [
     path("logout", auth.logout, name="logout"),
     path("register", auth.register, name="register"),
     path("oauth2/<provider>/callback", auth.loginSocialCallback, name="loginSocailCallback"),
+
+    path("redis", home.redis, name="redis"),
 ]

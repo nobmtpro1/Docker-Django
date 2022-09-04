@@ -4,3 +4,6 @@ marshmallow
 bcrypt
 pyjwt
 requests
+redis
+celery
+django-celery-results

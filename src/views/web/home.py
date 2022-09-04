@@ -1,6 +1,9 @@
+from datetime import datetime, timedelta
 from pprint import pprint
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import get_object_or_404, render
+
+from ...tasks import add
 
 from ...utilities.helpers import toJson
 from ...models import Ticket, Order, OrderDetail
@@ -145,3 +148,10 @@ def _calculateCart(request):
             cart["items"].append(item)
 
     return cart
+
+
+def redis(request):
+    # async_task('src.jobs.test.printString', "Nguyễn Bá Thái",timeout =30)
+    now = datetime.now()
+    add.apply_async((5, 1), countdown=10)
+    return HttpResponse(now)
