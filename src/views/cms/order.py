@@ -1,12 +1,14 @@
+import json
 from pprint import pprint
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render
+
+from ...tasks import sendEmailOrderSuccess, printt
 from ...utilities.helpers import randomString, toJson
 from ...models import Order, SoldTicket
 from django.contrib.auth.decorators import permission_required
-from django.core.mail import send_mail
-from django.template.loader import render_to_string
 from django.db import transaction
+from django.core import serializers
 
 
 @permission_required("src.view_order")
@@ -36,20 +38,14 @@ def apply(request):
                     order.is_paid = 1
                     order.save()
 
-                html = render_to_string("email/orderSuccess.html", {"order": order})
-
-                send_mail(
-                    "Mua vé thành công",
-                    "",
-                    "nobmtpro2021@gmail.com",
-                    [order.email],
-                    fail_silently=False,
-                    html_message=html,
-                )
-
         except Exception as e:
             return JsonResponse({"error": str(e)}, status=400)
-
+            
+        sendEmailOrderSuccess.delay(
+            json.loads(serializers.serialize("json", [order],))[
+                0
+            ]["fields"]
+        )
         return JsonResponse({"string": randomString(6)}, status=200)
 
 

@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django_celery_results",
+    'django_celery_beat',
 ]
 
 MIDDLEWARE = [
@@ -174,3 +175,14 @@ CELERY_TASK_TIME_LIMIT = 30 * 60
 CELERY_RESULT_BACKEND = "django-db"
 CELERY_CACHE_BACKEND = "default"
 CELERY_BROKER_URL = "redis://default:" + REDIS_PASSWORD + "@" + REDIS_HOST + ":" + REDIS_PORT + "/0"
+
+CELERY_BEAT_SCHEDULE = {
+      'testSchedule': {
+        'task': 'src.tasks.testSchedule',
+        'schedule': 10.0,
+        'args': None,
+        'options': {
+            'expires': 15.0,
+        },
+    },
+}

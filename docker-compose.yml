@@ -2,19 +2,16 @@ version: '3.8'
 services:
   # django
   django:
+    container_name: django
     command: python manage.py runserver 0.0.0.0:8000
     ports:
       - 80:8000
     env_file:
       - ./.env
     build:
-      args:
-        user: django
-        uid: 1000
       context: .
       dockerfile: ./.docker/Dockerfile
-    image: django-app
-    restart: unless-stopped
+    restart: always
     working_dir: /usr/src/app
     volumes:
       - ./:/usr/src/app
@@ -25,7 +22,7 @@ services:
   db:
     image: mysql:5.7
     container_name: db
-    restart: unless-stopped
+    restart: always
     tty: true
     ports:
       - "3306:3306"
@@ -63,7 +60,45 @@ services:
       - redis:/redis
     networks:
       - myNetwork
-        
+  
+  celery-worker:
+    build:
+      context: .
+      dockerfile: ./.docker/Dockerfile
+    container_name: celery-worker
+    working_dir: /usr/src/app
+    command: celery -A src worker -l info
+    env_file:
+      - ./.env
+    volumes:
+      - ./:/usr/src/app
+    depends_on:
+      - django
+      - redis
+      - db
+    restart: always
+    networks:
+      - myNetwork
+
+  celery-beat:
+    build:
+      context: .
+      dockerfile: ./.docker/Dockerfile
+    container_name: celery-beat
+    working_dir: /usr/src/app
+    env_file:
+      - ./.env
+    command: celery -A src beat -l info
+    volumes:
+      - ./:/usr/src/app
+    depends_on:
+      - django
+      - redis
+      - db
+    restart: always
+    networks:
+      - myNetwork
+
 #Docker Networks
 networks:
   myNetwork:

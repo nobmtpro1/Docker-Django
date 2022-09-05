@@ -7,3 +7,4 @@ requests
 redis
 celery
 django-celery-results
+django-celery-beat
