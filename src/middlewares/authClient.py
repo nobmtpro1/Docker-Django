@@ -5,7 +5,7 @@ from django.contrib.auth import logout as auth_logout
 from ..models.UserClient import UserClient
 import jwt
 
-urlsLoginRequired = ["livestream"]
+urlsLoginRequired = ["userInfo"]
 
 
 class AuthClient:

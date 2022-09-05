@@ -1,6 +1,6 @@
 {% extends "web/partials/layout.html" %} {% load static %} {% block content %}
 <main class="page-overview">
-    <section class="welcome">
+    <form class="welcome" id="form">
         <h1 class="title">CHÀO MỪNG BẠN</h1>
         <p class="description">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ultricies
@@ -11,9 +11,9 @@
             Ornare neque massa, id elit, venenatis nec interdum. Neque ipsum
             amet leo mi nullam vulputate. Pretium arcu feugiat magna
         </p>
-        <input class="input" type="text" placeholder="CODE KICH HOAT" />
+        <input class="input" type="text" placeholder="CODE KICH HOAT" name="code" />
         <button class="button">Kích hoạt</button>
-    </section>
+    </form>
     <section class="trailer">
         <div class="left">
             <iframe
@@ -485,4 +485,39 @@
         >
     </section>
 </main>
+{% endblock %}
+
+{% block foot %}
+<script>
+    $(document).on('submit', '#form', function() {
+        var formData = new FormData()
+
+        formData.append('csrfmiddlewaretoken', $('[name="csrfmiddlewaretoken"]').val() || "")
+
+        $('#form').find('input,textarea,select').each(function(i) {
+            if ($(this).attr('type') == 'file') {
+                formData.append($(this).attr('name'), $(this)[0]?.files[0] || "")
+            }else{
+                formData.append($(this).attr('name'), $(this)?.val() || "")
+            }
+        })
+
+        $.ajax({
+            url: '',
+            data: formData,
+            processData: false,
+            contentType: false,
+            type: 'POST',
+            success: function(data) {
+                console.log(data)
+                window.location.href = data.url
+            },
+            error: function(data, textStatus, jqXHR) {
+                var error = data.responseJSON.error
+                alert(error);
+            },
+        });
+        return false
+    })
+</script>
 {% endblock %}

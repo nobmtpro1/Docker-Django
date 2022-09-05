@@ -10,12 +10,19 @@
                     href="{% url 'web:home' %}">Đặt vé</a></li>
             <li class="{% if request.resolver_match.url_name == "livestream" %}active{% endif %}"><a
                     href="{% url 'web:livestream' %}">Xem livestream</a></li>
+
+            {% if request.userClient %}
             <li>
-                {% if request.userClient %}
-                <a href="{% url 'web:logout' %}?next={{ request.get_full_path | urlencode }}">{{request.userClient.name}}
-                    / Đăng xuất</a>
-                {% else %}
-                <a href="{% url 'web:login' %}">Đăng nhập</a> </li>
+                <a
+                    href="{% url 'web:userInfo' request.userClient.email %}">{{request.userClient.name}}</a>
+            </li>
+            <li>
+                <a href="{% url 'web:logout' %}?next={{ request.get_full_path | urlencode }}">Đăng xuất</a>
+            </li>
+            {% else %}
+            <li>
+                <a href="{% url 'web:login' %}">Đăng nhập</a>
+            </li>
             {% endif %}
         </ul>
         <div class="hamburger">

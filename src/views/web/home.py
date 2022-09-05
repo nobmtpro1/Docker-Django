@@ -148,10 +148,3 @@ def _calculateCart(request):
             cart["items"].append(item)
 
     return cart
-
-
-def redis(request):
-    # async_task('src.jobs.test.printString', "Nguyễn Bá Thái",timeout =30)
-    now = datetime.now()
-    add.apply_async((5, 1), countdown=10)
-    return HttpResponse(now)
