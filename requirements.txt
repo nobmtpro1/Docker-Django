@@ -8,3 +8,6 @@ redis
 celery
 django-celery-results
 django-celery-beat
+djangorestframework
+markdown       
+django-filter

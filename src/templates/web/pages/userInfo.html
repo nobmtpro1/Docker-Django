@@ -1,9 +1,21 @@
 {% extends "web/partials/layoutBootstrap.html" %}
 {% load helpers %}
 {% block content %}
-<div class="containe d-flex justify-content-center align-items-center" style="min-height:100vh">
+<!-- <div class="containe d-flex justify-content-center align-items-center" style="min-height:100vh">
     <div class="row">
        <h1>User Info</h1>
+    </div>
+</div> -->
+<div style="padding:5vw 10vw">
+    <h1>{{user.name}} / {{user.email}}</h1>
+    <h3>Vé đã mua:</h3>
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr 1fr 1fr 1fr; gap:2vw; margin-top:3vw">
+        {% for soldTicket in soldTickets %}
+        <div style="height: 10vw; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; padding:1vw;">
+            <p>Code: {{soldTicket.code|upper}} </p>
+            <p>Ticket: {{soldTicket.ticket.name}} </p>
+        </div>
+        {% endfor %}
     </div>
 </div>
 {% endblock %}

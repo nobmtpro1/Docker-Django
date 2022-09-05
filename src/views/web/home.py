@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 from pprint import pprint
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import get_object_or_404, render
-
+from django.forms.models import model_to_dict
 from ...tasks import add
 
 from ...utilities.helpers import toJson
@@ -50,8 +50,16 @@ class CartSchema(Schema):
 
 
 def index(request):
+    # ticket = Ticket.objects.order_by("-id").filter().first()
+    # return JsonResponse(
+    #     model_to_dict(ticket),
+    #     safe=False,
+    # )
     tickets = Ticket.objects.order_by("-id").filter()
-
+    # return JsonResponse(
+    #     list(tickets.values()),
+    #     safe=False,
+    # )
     return render(
         request,
         "web/pages/home.html",
