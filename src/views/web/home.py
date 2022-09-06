@@ -10,7 +10,7 @@ from ...models import Ticket, Order, OrderDetail
 import json
 from marshmallow import Schema, fields, ValidationError, INCLUDE, validate
 from django.core import serializers
-
+import logging
 
 # validation
 class CartSchema(Schema):
@@ -48,8 +48,18 @@ class CartSchema(Schema):
         },
     )
 
+class MyException(Exception):
+    pass
 
+    
 def index(request):
+    logger = logging.getLogger("customLog")
+    logger.debug("this is debug")
+    logger.info("this is info")
+    logger.warning("this is warning")
+    logger.error("this is error")
+    logger.critical("this is critical")
+    raise MyException('msg here')
     # ticket = Ticket.objects.order_by("-id").filter().first()
     # return JsonResponse(
     #     model_to_dict(ticket),

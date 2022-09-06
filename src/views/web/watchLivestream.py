@@ -19,7 +19,7 @@ def index(request, slug, code):
     time = ticket.time_from
     dateNow = datetime.date.today()
     timeNow = datetime.datetime.now().time()
-    if date > dateNow or time > timeNow:
+    if date > dateNow or (date == dateNow and time > timeNow):
         return redirect("web:livestream")
 
     soldTicket = SoldTicket.objects.filter(code=code).first()

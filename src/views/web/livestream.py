@@ -23,8 +23,9 @@ def index(request):
         if date > dateNow:
             return JsonResponse({"error": "Chưa đến ngày livestream"}, status=400)
 
-        if time > timeNow:
+        if date == dateNow and time > timeNow:
             return JsonResponse({"error": "Chưa đến giờ livestream"}, status=400)
+
         return JsonResponse(
             {
                 "url": reverse(

@@ -42,8 +42,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django_celery_results",
-    'django_celery_beat',
-    'rest_framework',
+    "django_celery_beat",
+    "rest_framework",
 ]
 
 MIDDLEWARE = [
@@ -175,15 +175,62 @@ CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60
 CELERY_RESULT_BACKEND = "django-db"
 CELERY_CACHE_BACKEND = "default"
-CELERY_BROKER_URL = "redis://default:" + REDIS_PASSWORD + "@" + REDIS_HOST + ":" + REDIS_PORT + "/0"
-
+CELERY_BROKER_URL = (
+    "redis://default:" + REDIS_PASSWORD + "@" + REDIS_HOST + ":" + REDIS_PORT + "/0"
+)
 CELERY_BEAT_SCHEDULE = {
-      'testSchedule': {
-        'task': 'src.tasks.testSchedule',
-        'schedule': 10.0,
-        'args': None,
-        'options': {
-            'expires': 15.0,
+    "testSchedule": {
+        "task": "src.tasks.testSchedule",
+        "schedule": 10.0,
+        "args": None,
+        "options": {
+            "expires": 15.0,
+        },
+    },
+}
+
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {
+            "format": "{levelname} {asctime} {module} {process:d} {thread:d} {message}",
+            "style": "{",
+        },
+        "simple": {
+            "format": "{levelname} {asctime}: {message}",
+            "style": "{",
+        },
+    },
+    "handlers": {
+        "logfile": {
+            "level": "DEBUG",
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": BASE_DIR / "log/debug.log",
+            "maxBytes": 100000,
+            "backupCount": 2,
+            "formatter": "verbose",
+        },
+        "customLog": {
+            "level": "DEBUG",
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": BASE_DIR / "log/customLog.log",
+            "maxBytes": 100000,
+            "backupCount": 2,
+            "formatter": "simple",
+        },
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["logfile"],
+            "level": "ERROR",
+            "propagate": True,
+        },
+        "customLog": {
+            "handlers": ["customLog"],
+            "level": "DEBUG",
+            "propagate": True,
         },
     },
 }
