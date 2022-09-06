@@ -48,28 +48,13 @@ class CartSchema(Schema):
         },
     )
 
+
 class MyException(Exception):
     pass
 
-    
+
 def index(request):
-    logger = logging.getLogger("customLog")
-    logger.debug("this is debug")
-    logger.info("this is info")
-    logger.warning("this is warning")
-    logger.error("this is error")
-    logger.critical("this is critical")
-    raise MyException('msg here')
-    # ticket = Ticket.objects.order_by("-id").filter().first()
-    # return JsonResponse(
-    #     model_to_dict(ticket),
-    #     safe=False,
-    # )
     tickets = Ticket.objects.order_by("-id").filter()
-    # return JsonResponse(
-    #     list(tickets.values()),
-    #     safe=False,
-    # )
     return render(
         request,
         "web/pages/home.html",

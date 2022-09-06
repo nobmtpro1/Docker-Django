@@ -11,3 +11,4 @@ django-celery-beat
 djangorestframework
 markdown       
 django-filter
+django-cors-headers

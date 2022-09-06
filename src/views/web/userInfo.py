@@ -2,8 +2,6 @@ from pprint import pprint
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.db.models import Prefetch
-from ...serializers.TicketSerializer import TicketSerializer
-from ...serializers.SoldTicketSerializer import SoldTicketSerializer
 from ...utilities.helpers import toJson
 from ...models import UserClient, SoldTicket, Ticket
 

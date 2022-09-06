@@ -3,3 +3,7 @@ from .Order import Order
 from .OrderDetail import OrderDetail
 from .SoldTicket import SoldTicket
 from .UserClient import UserClient
+from .CourseCategory import CourseCategory
+from .Course import Course
+from .Session import Session
+from .CartItem import CartItem
